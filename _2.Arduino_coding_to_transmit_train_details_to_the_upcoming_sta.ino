@@ -2754,7 +2754,7 @@ digitalWrite(SETPIN,HIGH);
 else
 {
 digitalWrite(SETPIN,LOW);
-HC12.print("AT+B115200"); /* .....Baud rate of 115200 decreases transmission
+HC12.print("AT+B9600"); /* .....Baud rate of 115200 decreases transmission
 distance,..... */
 digitalWrite(SETPIN,HIGH);
 }
