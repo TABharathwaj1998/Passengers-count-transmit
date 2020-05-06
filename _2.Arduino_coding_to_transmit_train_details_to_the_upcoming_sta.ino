@@ -2148,7 +2148,7 @@ EEPROM.write(21,i);
 }
 else if(775<TD<800)
 {
-tno==tno2;
+tno==tno1+1;
 EEPROM.write(20,tno);
 i==1;
 EEPROM.write(21,i);
@@ -2746,11 +2746,18 @@ if(flag==0)
 {
 flag=flag+1;
 EEPROM.write(23,flag);
-}
 digitalWrite(SETPIN,LOW);
 HC12.print("AT+B115200"); /* .....Baud rate of 115200 decreases transmission
 distance,..... */
 digitalWrite(SETPIN,HIGH);
+}
+else
+{
+digitalWrite(SETPIN,LOW);
+HC12.print("AT+B115200"); /* .....Baud rate of 115200 decreases transmission
+distance,..... */
+digitalWrite(SETPIN,HIGH);
+}
 if((02<=stno<=07)&&(0<coach1<13)&&Error==0&&X!=0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter)); /* .......the train number, station code, platform number, coach number &
