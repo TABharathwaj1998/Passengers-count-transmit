@@ -98,6 +98,8 @@ if(digitalRead(PIR)==1&&Status==2)
 {
 DA==0;
 EEPROM.write(1,DA);
+Error==0;
+EEPROM.write(17,Error);
 Status==0;
 EEPROM.write(2,Status);
 X==0;
@@ -2828,7 +2830,7 @@ details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*100
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
-}
+} /* Due to coach repair, Train number is received from 1st compartment and sent to last i.e 12th compartment. That compartment will send coach1 value as 1 to other compartments. So Error as value 5 will compensate by merging coach2 value which is 12 when coach1 value is 1. */
 else
 {
 }
@@ -3012,6 +3014,8 @@ Step==0;
 EEPROM.write(6,Step);
 Fix==0;
 EEPROM.write(11,Fix);
+Error==0;
+EEPROM.write(17,Error);
 DA==0;
 EEPROM.write(1,DA);
 Status==0;
