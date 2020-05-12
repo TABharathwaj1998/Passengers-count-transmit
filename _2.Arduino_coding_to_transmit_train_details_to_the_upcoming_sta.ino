@@ -217,8 +217,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(13,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE1)==1&&coach1<13&&receive==0)
 {
@@ -249,8 +247,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE1)==1&&coach1>12&&receive==0)
 {
@@ -265,8 +261,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else
 {
@@ -420,8 +414,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE1)==1&&coach1<13&&receive==0) /* If “receive"
 value is 0, then...... */
@@ -438,8 +430,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE1)==1&&coach1>12)
 {
@@ -454,8 +444,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE1)==1&&coach1>12&&receive==0)
 {
@@ -470,8 +458,6 @@ r==0;
 EEPROM.write(12,r);
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else /* ........ the receiver value would not have incremented due to power
 interruption at transmitter side that would have happened while Check was 0 at
@@ -964,7 +950,7 @@ if(lock<2&&coach1>12)
 lock==1; /* lock value 1 will fix this train number until P1 and P2 values
 becomes lower. */
 EEPROM.write(5,lock);
-Step==2;
+Step==0;
 EEPROM.write(6,Step);
 }
 else if(lock<2&&coach1<13&&tno1!=0)
@@ -1060,7 +1046,7 @@ if(lock<2&&coach1>12)
 {
 lock==1;
 EEPROM.write(5,lock);
-Step==2;
+Step==0;
 EEPROM.write(6,Step);
 }
 else if(lock<2&&coach1<13&&tno1!=0)
@@ -1207,8 +1193,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE2)==1&&coach1<13&&receive==0)
 {
@@ -1233,8 +1217,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE2)==1&&coach1>12)
 {
@@ -1408,8 +1390,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE2)==1&&coach1<13&&receive==0)
 {
@@ -1434,8 +1414,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE2)==1&&coach1>12)
 {
@@ -1460,8 +1438,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else if(digitalRead(LSRRCVE2)==1&&coach1>12&&receive==0)
 {
@@ -1486,8 +1462,6 @@ EEPROM.write(12,r);
 }
 Check==0;
 EEPROM.write(4,Check);
-Fix==0;
-EEPROM.write(11,Fix);
 }
 else
 {
@@ -1937,7 +1911,7 @@ if(lock<2&&coach1>12)
 {
 lock==1;
 EEPROM.write(5,lock);
-Step==2;
+Step==0;
 EEPROM.write(6,Step);
 }
 else if(lock<2&&coach1<13)
@@ -2021,7 +1995,7 @@ if(lock<2&&coach1>12)
 {
 lock==1;
 EEPROM.write(5,lock);
-Step==2;
+Step==0;
 EEPROM.write(6,Step);
 }
 else if(lock<2&&coach1<13)
@@ -2500,7 +2474,7 @@ EEPROM.write(20,tno);
 }
 else if(8<=i<=13)
 {
-tno==tno2;
+tno==tno1+1;
 EEPROM.write(20,tno);
 }
 else
