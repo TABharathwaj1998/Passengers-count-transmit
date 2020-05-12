@@ -1924,6 +1924,8 @@ else
 }
 Fix==0;
 EEPROM.write(11,Fix);
+Error==5;
+EEPROM.write(17,Error);
 }
 }
 else
@@ -1949,11 +1951,11 @@ Check==0;
 EEPROM.write(4,Check);
 }
 }
-}
 Error==0;
 EEPROM.write(17,Error);
 time=time*0;
 EEPROM.write(18,time);
+}
 }
 }
 else
@@ -2008,6 +2010,8 @@ else
 }
 Fix==0;
 EEPROM.write(11,Fix);
+Error==5;
+EEPROM.write(17,Error);
 }
 }
 else
@@ -2763,6 +2767,22 @@ EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
+else if((02<=stno<=07)&&(0<coach1<13)&&Error==5&&X!=0)
+{
+details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
++counter));
+EEPROM.write(27,details);
+d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
+EEPROM.write(28,d);
+}
+else if((8<=stno<=13)&&(0<coach2<13)&&Error==5&&X!=0)
+{
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
++counter));
+EEPROM.write(27,details);
+d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
+EEPROM.write(28,d);
+}
 else if((14<=stno<=25)&&(0<coach1<13)&&Error==0&&(tno%2==1)&&X!=0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter));
@@ -2791,6 +2811,22 @@ details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*100
 +counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
+EEPROM.write(28,d);
+}
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X!=0)
+{
+details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
++counter));
+EEPROM.write(27,details);
+d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
+EEPROM.write(28,d);
+}
+else if((14<=stno<=25)&&(0<coach2<13)&&Error==5&&(tno%2==0)&&X!=0)
+{
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
++counter));
+EEPROM.write(27,details);
+d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
 else
