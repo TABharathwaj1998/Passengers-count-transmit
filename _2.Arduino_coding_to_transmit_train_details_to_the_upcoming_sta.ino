@@ -3008,6 +3008,10 @@ delay(1000);
 else if(digitalRead(PIR)==1&&time==10&&Status==2) /* When train departs as
 shown by PIR detection and Status value of 2, then........ */
 {
+Step==0;
+EEPROM.write(6,Step);
+Fix==0;
+EEPROM.write(11,Fix);
 DA==0;
 EEPROM.write(1,DA);
 Status==0;
@@ -3021,10 +3025,6 @@ indicating "D" meaning Departure. With this value the station makes Status 4 so
 that Departed train erases when it goes over Light detectors.*/
 X==0;
 EEPROM.write(3,X);
-Step==0;
-EEPROM.write(6,Step);
-Fix==0;
-EEPROM.write(11,Fix);
 digitalWrite(TL1,LOW);
 digitalWrite(TL2,LOW);
 }
