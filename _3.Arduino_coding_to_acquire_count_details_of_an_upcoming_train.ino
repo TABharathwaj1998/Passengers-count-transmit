@@ -879,20 +879,18 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
      delay(50);
      digitalWrite(LSRSND1,LOW);
      delay(50);
-     if(700<LT1<800) /* Numbers from 0 to 99 is extracted. */
-     {
-      if(700<=LT2<=705) /* Numbers from 0 to 5 is extracted. */
-      {
-       Tno=((LT2-700)*100)+(LT1-700); /* Added to get Train number and making Confirmed value as 1. */
-       EEPROM.write(2,Tno);
-       Error==0;
-       EEPROM.write(9,Error);
-       Alert==0;
-       EEPROM.write(0,Alert);
-       Confirmed==1;
-       EEPROM.write(8,Confirmed);
-       Step==2;      EEPROM.write(28,Step);                                
-      }                
+     if((700<LT1<800)&&(700<=LT2<=705)) /* Numbers from 0 to 99 is extracted and numbers from 0 to 5 is extracted. */
+     { 
+      Tno=((LT2-700)*100)+(LT1-700); /* Added to get Train number and making Confirmed value as 1. */
+      EEPROM.write(2,Tno);
+      Error==0;
+      EEPROM.write(9,Error);
+      Alert==0;
+      EEPROM.write(0,Alert);
+      Confirmed==1;
+      EEPROM.write(8,Confirmed);
+      Step==2;      
+      EEPROM.write(28,Step);                                               
      }
      digitalWrite(ALRTOUT,HIGH);           
      if(digitalRead(ALRTIN)==1)
