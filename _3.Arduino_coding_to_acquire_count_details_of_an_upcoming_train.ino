@@ -836,8 +836,9 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
    }             
    indicate==1;  
    EEPROM.write(24,indicate);
- }
- }                     
+  }
+ } 
+ }                    
  if(indicate==1)
  {
   /* All the lights TCOMP 1 to 8 will switch ON if light intensity gets lower. */
@@ -1246,6 +1247,10 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
     }                                      
    }
   } 
+  else if(digitalRead(LSRRCVE2)==1&&Error==1&&Step==2)
+  {
+
+  }
   else
   {
   }     
@@ -1380,9 +1385,8 @@ if((z==4||r==1)&&TD3<10&&Status==4)
     EEPROM.write(d,4);
     Alert==0;
    EEPROM.write(0,Alert); 
+    }
    }
   }
  }
-}
-}
 }
