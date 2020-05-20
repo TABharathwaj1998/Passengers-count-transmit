@@ -1105,7 +1105,8 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
       }                                                    
      }                       
     } 
-   }                                                                                                                                                                                            while(Check==1&&send>0)
+   } 
+   while(Check==1&&send>0)                                                                                                                                                                                           while(Check==1&&send>0)
    {
    delay(50);                      
    if(digitalRead(LSRRCVE2)==1)
