@@ -1249,7 +1249,7 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
   } 
   else if(digitalRead(LSRRCVE2)==1&&Error==1&&Step==2)
   {
-
+   ;
   }
   else
   {
@@ -1274,9 +1274,9 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
    digitalWrite(TCOMP7,HIGH);
    digitalWrite(TCOMP8,HIGH);
   }   
-/* "z" means station code for forward journey. After the train departs, it sends "Sts" value with last digit as 4 indicating Departure where D is the 4th letter. Then it crosses first over TD3 sensor and then TD4. After crossing both, train details are erased and all the values such as Status, Alert, Confirm, r and indicate values becomes zero. */  
-if((z==4||r==1)&&TD3<10&&Status==4)    
- {
+/* After the train departs, it sends "Sts" value with last digit as 4 indicating Departure where D is the 4th letter. Then it crosses first over TD3 sensor and then TD4. After crossing both, train details are erased and all the values such as Status, Alert, Confirm, r and indicate values becomes zero. */  
+  if(TD3<10&&Status==4)    
+  {
    digitalWrite(T3,HIGH); 
    if(TD4<10)
    {
@@ -1288,8 +1288,6 @@ if((z==4||r==1)&&TD3<10&&Status==4)
    {           
     z=z*0;                                  
     EEPROM.write(6,z);
-    r=r*0;
-    EEPROM.write(27,r);
     Status=Status*0;
     EEPROM.write(26,Status);
     Sts==x*0;
@@ -1308,7 +1306,7 @@ if((z==4||r==1)&&TD3<10&&Status==4)
     EEPROM.write(0,Alert);
   }
  }
- else if((z==11||r==1)&&TD2<10&&Status==4)   /* This loop is like previous loop which is used for return journey as shown by z=11. */
+ else if(TD2<10&&Status==4)   /* This loop is like previous loop which is used for return journey. */
  {
    digitalWrite(T2,HIGH);
    if(TD1<10)
@@ -1319,10 +1317,8 @@ if((z==4||r==1)&&TD3<10&&Status==4)
    }
   if(TD1>10&&TD2>10&&Status==4)
   {
-   z=z*0;                                  
+    z=z*0;                                  
     EEPROM.write(6,z);
-    r=r*0;
-    EEPROM.write(27,r);
     Status=Status*0;
     EEPROM.write(26,Status);
     Sts==x*0;
@@ -1340,26 +1336,6 @@ if((z==4||r==1)&&TD3<10&&Status==4)
     Alert==0;
    EEPROM.write(0,Alert);            
   }
- }
- else if(z==4&&TD2<10&&TD1>10) // Before arriving at station, the train moves over TD2 and TD1. After moving at both sensors, high intensity will make return 'r' value as zero so that if that train will make its return journey, then this r value will be useful. 
- {
-   digitalWrite(T2,HIGH);
-   digitalWrite(T1,LOW);
-   if(TD1>10&&TD2>10&&Status==1)
-  {
-     r==1;
-     EEPROM.write(27,r);
-  }
- }
- else if(z==11&&TD4<10&&TD3>10)  /*  Same followed for return journey trains which may go towards previous station in case of track maintenance. */
- {
-  digitalWrite(T4,HIGH);
-  digitalWrite(T3,LOW); 
-  if(TD3>10&&TD4>10&&Status==1)
-  {
-     r==1;
-     EEPROM.write(27,r);
-  }
  }       
  else
  {
@@ -1367,8 +1343,6 @@ if((z==4||r==1)&&TD3<10&&Status==4)
   {
     z=z*0;                                  
     EEPROM.write(6,z);
-    r=r*0;
-    EEPROM.write(27,r);
     Status=Status*0;
     EEPROM.write(26,Status);
     Sts==x*0;
