@@ -848,26 +848,6 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   TD=analogRead(snr);
   LT1=analogRead(ltn1);
   LT2=analogRead(ltn2);
-  if(TD1<750)  
-  {
-   digitalWrite(TCOMP1,HIGH);
-   digitalWrite(TCOMP2,HIGH);
-  }
-  if(TD2<750) 
-  {
-   digitalWrite(TCOMP3,HIGH);
-   digitalWrite(TCOMP4,HIGH);
-  } 
-  if(TD3<750)  
-  {
-   digitalWrite(TCOMP5,HIGH);
-   digitalWrite(TCOMP6,HIGH);
-  }
-  if(TD4<750)  
-  {
-   digitalWrite(TCOMP7,HIGH);
-   digitalWrite(TCOMP8,HIGH);
-  }
   if(TD<10&&Status==1) /* Then the station checks whether LDR (TD) placed in between the platform track has value less than 10 and Status value is 1 indicating that the train arrived so that Laser from station sends light once to 1st compartment to receive the Train number during Step 1. At Step 2 it transmits to the last compartment so that other compartments which are not able to receive the details from the 1st compartment will acquire details from the last compartment. */
   {
    if(Step==1&&(Alert==1||Error==1))
@@ -951,7 +931,6 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        {
         Error==1;
         EEPROM.write(9,Error);
-   
        }   
       }                                                    
      }                       
@@ -1127,7 +1106,7 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
      }                       
     } 
    }                                                                                                                                                                                            while(Check==1&&send>0)
-  {
+   {
    delay(50);                      
    if(digitalRead(LSRRCVE2)==1)
    {
@@ -1268,7 +1247,27 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
   } 
   else
   {
-  }            
+  }     
+   if(TD1<750)  
+  {
+   digitalWrite(TCOMP1,HIGH);
+   digitalWrite(TCOMP2,HIGH);
+  }
+  if(TD2<750) 
+  {
+   digitalWrite(TCOMP3,HIGH);
+   digitalWrite(TCOMP4,HIGH);
+  } 
+  if(TD3<750)  
+  {
+   digitalWrite(TCOMP5,HIGH);
+   digitalWrite(TCOMP6,HIGH);
+  }
+  if(TD4<750)  
+  {
+   digitalWrite(TCOMP7,HIGH);
+   digitalWrite(TCOMP8,HIGH);
+  }   
 /* "z" means station code for forward journey. After the train departs, it sends "Sts" value with last digit as 4 indicating Departure where D is the 4th letter. Then it crosses first over TD3 sensor and then TD4. After crossing both, train details are erased and all the values such as Status, Alert, Confirm, r and indicate values becomes zero. */  
 if((z==4||r==1)&&TD3<10&&Status==4)    
  {
