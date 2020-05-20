@@ -16,7 +16,7 @@ int TD1,TD2,TD3,TD4,TD,LT1,LT2;
 long int x,y,tno,counter,Tno,details;
 static int z=0,p=0,c=0;
 static int P121,P112,P103,P94,P85,P76,P67,P58,P49,P310,P211,P1P12;
-static int r=0,indicate=0,Sts=0,Status=0,Error=0,Confirmed=0,Fix=0,d=0,Check=0,transmit=0,rcve=0,receive=0,Step=0,coach1=0,send=0,S=0,time=0,Alert=0;
+static int indicate=0,Sts=0,Status=0,Error=0,Confirmed=0,Fix=0,d=0,Check=0,transmit=0,rcve=0,receive=0,Step=0,coach1=0,send=0,S=0,time=0,Alert=0;
 int e=3909;
 #define T1 22
 #define T2 23
@@ -83,7 +83,6 @@ P1P12=EEPROM.read(23);
 indicate=EEPROM.read(24);
 Sts=EEPROM.read(25);
 Status=EEPROM.read(26);
-r=EEPROM.read(27);
 Step=EEPROM.read(29);
 send=EEPROM.read(29);
 time=EEPROM.read(30);
@@ -718,8 +717,6 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   {
    Status=1;   /* Status value becomes 1. */
    EEPROM.write(26,Status);
-   r==1;
-   EEPROM.write(27,r);
   }
   else if(Sts==104114||Sts==211114||Sts==104314||Sts==211314)
   {
@@ -959,7 +956,8 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
       }                                                    
      }                       
     }
-   }   while((digitalRead(LSRRCVE2)==0||digitalRead(LSRRCVE2)==1)&&S>0&&Check==0)
+   }   
+   while((digitalRead(LSRRCVE2)==0||digitalRead(LSRRCVE2)==1)&&S>0&&Check==0)
    {
      digitalWrite(LSRSND2,HIGH);
      delay(50);
@@ -1267,7 +1265,7 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
      }                            
     }                                      
    }
-  }
+  } 
   else
   {
   }            
