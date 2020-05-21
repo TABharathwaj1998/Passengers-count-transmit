@@ -1152,7 +1152,7 @@ else
 next compartment. This can be used when there is a coach repair in between
 which becomes unable to receive the train number from the 1st compartment. */
 else
-if(Step==1&&P2>20&&(Fix==0||Fix==1)&&(Check==1||Check==0)&&(coach1==0
+if(Step==1&&P2>20&&lock>1&&digitalRead(LSRRCVE2)==1&&(Fix==0||Fix==1)&&(Check==1||Check==0)&&(coach1==0
 ||t==0)&&r!=1)
 {
 Fix==1;
@@ -1192,6 +1192,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -1216,6 +1218,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -1236,6 +1240,14 @@ EEPROM.write(12,r);
 coach1==0;
 EEPROM.write(8,coach1);
 }
+else
+{
+ r==0;
+ EEPROM.write(12,r);
+ t==1;
+ EEPROM.write(15,t);
+}
+}
 else if(digitalRead(LSRRCVE2)==1&&coach1>12&&receive==0)
 {
 Tno==coach1;
@@ -1254,6 +1266,10 @@ EEPROM.write(8,coach1);
 }
 else
 {
+ r==0;
+EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 }
 else
@@ -1389,6 +1405,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -1413,6 +1431,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -1437,6 +1457,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -1461,6 +1483,8 @@ else
 {
 r==0;
 EEPROM.write(12,r);
+t==1;
+EEPROM.write(15,t);
 }
 Check==0;
 EEPROM.write(4,Check);
@@ -2872,7 +2896,7 @@ time=time*0;
 EEPROM.write(18,time);
 }
 else if(TD<700) /* If no light emission occurs, then time is incremented so that
-Train sends details if time is 10 or sends Status if time is 15 and makes time value
+Train sends details if time is 250 or sends Status if time is 275 and makes time value
 0. */
 {
 while(time<=250&&TD<700)
@@ -2945,7 +2969,7 @@ time==250;
 EEPROM.write(18,time);
 loop();
 }
-else if(digitalRead(LSRRCVE2)==1&&t!=2)
+else if(digitalRead(LSRRCVE2)==1&&t!=2&&lock<2)
 {
 Step==1;
 EEPROM.write(6,Step);
