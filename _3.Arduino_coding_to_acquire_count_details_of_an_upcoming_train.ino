@@ -459,7 +459,7 @@ void loop()
    Check==0;
    EEPROM.write(10,Check);
   }
-  else if(d!=Tno) /* If not equal, then Arduino will....... */
+  else if((d!=Tno)&&(100000000<x<=999999999)) /* If not equal, then Arduino will....... */
   {
    digitalWrite(ALRTOUT,HIGH); /* ..... send to Arduino that acquires this detail, checks whether train is present at the station checked by train number and sends to that platform */
   /* Train detail which was extracted will be merged again and sent. */  if(digitalRead(ALRTIN)==1&&(100000000<=x<=199999999))
@@ -717,6 +717,8 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   {
    Status=1;   /* Status value becomes 1. */
    EEPROM.write(26,Status);
+   digitalWrite(T1,LOW);
+   digitalWrite(T4,LOW);
   }
   else if(Sts==104114||Sts==211114||Sts==104314||Sts==211314)
   {
@@ -725,6 +727,44 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   }
   else
   {
+   TD1=analogRead(snr1);
+   TD2=analogRead(snr2);
+   TD3=analogRead(snr3);
+   TD4=analogRead(snr4);
+   if(TD1<750)  
+   {
+    digitalWrite(TCOMP1,HIGH);
+    digitalWrite(TCOMP2,HIGH);
+   }
+   if(TD2<750) 
+   {
+    digitalWrite(TCOMP3,HIGH);
+    digitalWrite(TCOMP4,HIGH);
+   } 
+   if(TD3<750)  
+   {
+    digitalWrite(TCOMP5,HIGH);
+    digitalWrite(TCOMP6,HIGH);
+   }
+   if(TD4<750)  
+   {
+    digitalWrite(TCOMP7,HIGH);
+    digitalWrite(TCOMP8,HIGH);
+   }
+   if(TD1<700&&TD2>700)
+   {
+    digitalWrite(T1,HIGH);
+    digitalWrite(T2,LOW);
+   }
+   else if(TD4<700&&TD3>700)
+   {
+    digitalWrite(T4,HIGH);
+    digitalWrite(T3,LOW);
+   }
+   else
+   {
+  
+   }
   }
  if(P121==0&&P112==0&& P103==0&& P94==0&& P85==0&& P76==0&& P67==0&& P58==0&& P49==0&& P310==0&& P211==0&& P1P12==0) 
  /* If priority of all compartments becomes 0, then all priority value becomes 1 by this function priority() and continues so on. */
@@ -851,7 +891,7 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   LT2=analogRead(ltn2);
   if(TD<10&&Status==1) /* Then the station checks whether LDR (TD) placed in between the platform track has value less than 10 and Status value is 1 indicating that the train arrived so that Laser from station sends light once to 1st compartment to receive the Train number during Step 1. At Step 2 it transmits to the last compartment so that other compartments which are not able to receive the details from the 1st compartment will acquire details from the last compartment. */
   {
-   if(Step==1&&(Alert==1||Error==1))
+   if(Step==1&&(Alert==1||Error==1)&&digitalRead(LSRRCVE2)==0)
    {
      digitalWrite(LSRSND1,HIGH);
      delay(50);
@@ -879,9 +919,13 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
      }                  
     }  
 /* With the train number, it sends to the last compartment using Laser communication. */              
-if(Step==2&&(Check==0||Check==1)) /* Check value becomes zero after extraction of train number if station code received from the upcoming train is wrong. */
-{                                           
-while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Check==0)
+ if((Step==2&&(Check==0||Check==1))||(digitalRead(LSRRCVE2)==1&&Step==1)) /* Check value becomes zero after extraction of train number if station code received from the upcoming train is wrong. */
+ {    
+  digitalWrite(LSRSND2,HIGH);
+  delay(50);
+  digitalWrite(LSRSND2,LOW);  
+  delay(50);                                      
+  while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Check==0)
   {
    digitalWrite(LSRSND2,HIGH);
    delay(50);
@@ -911,6 +955,7 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        {
         Check==1;
         EEPROM.write(10,Check);
+       }
       }
      }
     }
@@ -930,8 +975,9 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        EEPROM.write(30,time);
        if(time==1000)
        {
-        Error==1;
-        EEPROM.write(9,Error);
+        Step==1;      
+        EEPROM.write(28,Step);
+        break;
        }   
       }                                                    
      }                       
@@ -983,9 +1029,8 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        EEPROM.write(30,time);
        if(time==1000)
        {
-        Error==1;
-        EEPROM.write(9,Error);
-   
+        Step==1;      
+        EEPROM.write(28,Step);
        }   
       }                                                    
      }                       
@@ -1100,8 +1145,8 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        EEPROM.write(30,time);
        if(time==1000)
        {
-        Error==1;
-        EEPROM.write(9,Error);
+        Step==1;      
+        EEPROM.write(28,Step);
        }   
       }                                                    
      }                       
@@ -1239,22 +1284,18 @@ while(send<=Tno&&(digitalRead(LSRRCVE2)==1||digitalRead(LSRRCVE2)==0)&&S==0&&Che
        EEPROM.write(30,time);
        if(time==1000)
        {
-        Error==1;
-        EEPROM.write(9,Error);
+        Step==1;      
+        EEPROM.write(28,Step);
        }   
       }                                                    
      }                            
     }                                      
    }
   } 
-  else if(digitalRead(LSRRCVE2)==1&&Error==1&&Step==2)
-  {
-   ;
-  }
   else
   {
   }     
-   if(TD1<750)  
+  if(TD1<750)  
   {
    digitalWrite(TCOMP1,HIGH);
    digitalWrite(TCOMP2,HIGH);
