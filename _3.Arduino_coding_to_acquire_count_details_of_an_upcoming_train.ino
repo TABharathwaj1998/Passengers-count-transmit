@@ -920,7 +920,9 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
     }  
 /* With the train number, it sends to the last compartment using Laser communication. */              
  if((Step==2&&(Check==0||Check==1))||(digitalRead(LSRRCVE2)==1&&Step==1)) /* Check value becomes zero after extraction of train number if station code received from the upcoming train is wrong. */
- {    
+ { 
+  Step==2;      
+  EEPROM.write(28,Step) 
   digitalWrite(LSRSND2,HIGH);
   delay(50);
   digitalWrite(LSRSND2,LOW);  
