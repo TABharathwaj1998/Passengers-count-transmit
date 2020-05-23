@@ -606,6 +606,7 @@ do
 if((digitalRead(PIR1)==1|| digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0||digitalRead(PIR7)==0)&&digitalRead(PIR9)==1) /*
 When passengers enters the train........ */
 {
+ delay(665);
 /* ........then it checks whether a passenger enters the train by detecting IR 1. */
 if(digitalRead(PIR1)==1&&digitalRead(PIR8)==0)
 /* If PIR 1 detected but PIR 8 is undetected, the condition satisfies indicating that passenger is about to enter. After this
@@ -629,7 +630,7 @@ Wire.endTransmission();
 digitalWrite(CNTSNT,HIGH);
 digitalWrite(CNTSNT,LOW);
 }
-delay(900);
+delay(1200);
 if((digitalRead(PIR8)==1&&digitalRead(PIR1)==0)&&(digitalRead(PIR7)==0&&digitalRead(PIR2)==0)) /* If PIR 8 is detected and
 PIR 1 is undetected, then..... */
 {
@@ -684,7 +685,7 @@ EEPROM.write(9,e1);
 }
 else if((Alerten==1&&e1==0)||digitalRead(PIR9)==1) /* ......otherwise count is incremented once because there are cases
 where a person who is taken into count already may simply stand under PIR 7 or exit the train. This situation should not be
-mistaken with the above sub-loop condition. This is the reason why we check condition of PIR 1 or 2 detection for two times at
+mistaken with the above sub-loop condition. So condition of PIR 1 or 2 detection is checked for two times at
 the initial point of loop() function. */
 {
 counter=counter+1;
@@ -1702,6 +1703,7 @@ not following sub or sub-sub loops are followed or Alerten is incremented. */
 else if((digitalRead(PIR8)==1|| digitalRead(PIR7)==1)&&(digitalRead(PIR1)==0||digitalRead(PIR2)==0)) /* When a person is
 about to exit the train. */
 {
+delay(665);
 if((digitalRead(PIR8)==1&&digitalRead(PIR7)==1)&&(digitalRead(PIR1)==0&&digitalRead(PIR2)==0)) /* Twice decrement. */
 {
 if(digitalRead(PIR1)==0&&digitalRead(PIR2)==0)
@@ -1759,52 +1761,6 @@ else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&((digitalRead(PIR1)==0&&di
 {
 counter=counter-1;
 EEPROM.write(8,counter);
-}
-else if((digitalRead(PIR2)==1&&digitalRead(PIR1)==1)&&(digitalRead(PIR7)==0&&digitalRead(PIR8)==0))
-{
-if(Alertex==0&&digitalRead(PIR2)==1&&e7==1&&digitalRead(PIR7)==0&&digitalRead(PIR9)==0)
-{
-counter=counter-2;
-EEPROM.write(8,counter);
-e7==0;
-EEPROM.write(13,e7);
-}
-else if(Alertex==0&&digitalRead(PIR1)==1&&e8==1&&digitalRead(PIR8)==0&&digitalRead(PIR9)==0)
-{
-counter=counter-2;
-EEPROM.write(8,counter);
-e8==0;
-EEPROM.write(12,e8);
-}
-else if(Alertex==0&&(e8==1||e7==1)&&digitalRead(PIR9)==0)
-{
-counter=counter-2;
-EEPROM.write(8,counter);
-e7==0;
-EEPROM.write(13,e7);
-e8==0;
-EEPROM.write(12,e8);
-}
-else if(Alertex==0&&e8==0&&e7==0&&digitalRead(PIR9)==0)
-{
-counter=counter-2;
-EEPROM.write(8,counter);
-}
-else if((Alertex==1&&e7==1)||digitalRead(PIR9)==1)
-{
-counter=counter-1;
-EEPROM.write(8,counter);
-e7==0;
-EEPROM.write(13,e7);
-}
-else if(Alertex==1||digitalRead(PIR9)==1)
-{
-counter=counter-1;
-EEPROM.write(8,counter);
-}
-else
-{
-}
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0&&digitalRead(PIR1)==0))
 {
@@ -2003,7 +1959,7 @@ else
 }
 if(digitalRead(PIR9)==0)
 {
-if((digitalRead(PIR8)==1&&digitalRead(PIR1)==0)) /* Count decrement by detection of PIR 8 to 1. */
+if((digitalRead(PIR8)==1&&digitalRead(PIR1)==0)) /* Count decrement by detection of PIR 8 and 1. */
 {
 if(digitalRead(PIR1)==0&&digitalRead(PIR2)==0)
 {
@@ -2023,7 +1979,7 @@ Wire.endTransmission();
 digitalWrite(CNTSNT,HIGH);
 digitalWrite(CNTSNT,LOW);
 }
-delay(900);
+delay(1200);
 if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==0))
 {
 counter=counter-1;
@@ -2076,7 +2032,8 @@ else if((digitalRead(PIR1)==1&&digitalRead(PIR8)==1)&&(digitalRead(PIR7)==0&&dig
 e8==1;
 EEPROM.write(12,e8);
 do
-{ if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==0))
+{ 
+if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==0))
 {
 counter=counter-1;
 EEPROM.write(8,counter);
