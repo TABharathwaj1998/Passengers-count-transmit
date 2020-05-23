@@ -217,6 +217,8 @@ receive=receive*0;
 EEPROM.write(13,receive);
 r==0;
 EEPROM.write(12,r);
+t==2; /* "t=2" means Transmitter 2 */
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(13,Check);
 }
@@ -231,6 +233,8 @@ receive=receive*0;
 EEPROM.write(13,receive);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 Fix==0;
@@ -247,6 +251,8 @@ delay(50);
 digitalWrite(LSRSND1,LOW);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -261,6 +267,8 @@ delay(50);
 digitalWrite(LSRSND1,LOW);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -414,6 +422,8 @@ receive=receive*0;
 EEPROM.write(13,receive);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -430,6 +440,8 @@ receive=receive*0;
 EEPROM.write(13,receive);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -444,6 +456,8 @@ delay(50);
 digitalWrite(LSRSND1,LOW);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -458,6 +472,8 @@ delay(50);
 digitalWrite(LSRSND1,LOW);
 r==0;
 EEPROM.write(12,r);
+t==2; 
+EEPROM.write(15,t);
 Check==0;
 EEPROM.write(4,Check);
 }
@@ -509,7 +525,7 @@ else
 if(Step==1&&coach1>=0&&P2>20&&Fix==1&&(Check==0||Check==1)&&r==0&&
 t!=1) /* Transmission takes place if coach1 is not zero. */
 {
-t==2; /* "t=2" means Transmitter 2 */
+t==2;
 EEPROM.write(15,t);
 Fix==1;
 EEPROM.write(11,Fix);
