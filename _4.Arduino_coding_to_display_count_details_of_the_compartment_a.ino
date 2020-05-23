@@ -58,7 +58,7 @@ count= stscount +(x1*10)+2; /* added with 2 indicating less crowded compartment 
 }
 else if(131<=x1<=145)
 {
-count= stscount +(x1*10)+3; /* added with 3 indicating crowded compartment */
+count= stscount +(x1*10)+3; /* added with 3 indicating moderate crowd */
 }
 else if(x1>=146)
 {
@@ -73,8 +73,8 @@ else
 }
 EEPROM.write(2,count);
 sevseg.setNumber(count,1); /* 1 indicates decimal point after 1st digit from R.H.S. For instance when count is 1353 then this
-function will make this number as 135.3. */
+function will make this number as 135.3 which means moderate crowd. */
 sevseg.refreshDisplay();
 }
 }
-/* The above coding is repeated for all the 12 Arduinos for all 12 displays present at station. */
+/* The above coding is repeated for all the 12 displays present at station. */
