@@ -921,7 +921,7 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
 /* With the train number, it sends to the last compartment using Laser communication. */              
  if((Step==2&&(Check==0||Check==1))||(digitalRead(LSRRCVE2)==1&&Step==1)) /* Check value becomes zero after extraction of train number if station code received from the upcoming train is wrong. */
  { 
-  Step==2;      
+  Step==2;    
   EEPROM.write(28,Step) 
   digitalWrite(LSRSND2,HIGH);
   delay(50);
@@ -961,9 +961,8 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
       }
      }
     }
-   }
-   else
-   {
+    else
+    {
      while(time<1000)
      {
       if(digitalRead(LSRRCVE2)==1)
@@ -977,7 +976,7 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
        EEPROM.write(30,time);
        if(time==1000)
        {
-        Step==1;      
+        Step==1;      /* Initially this condition and Laser detection will continue the process in-case the communication is interrupted. */
         EEPROM.write(28,Step);
         break;
        }   
@@ -1296,6 +1295,7 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
   } 
   else
   {
+  }
   }     
   if(TD1<750)  
   {
@@ -1401,8 +1401,7 @@ else if((3000<y<3999)&&(P103==1))  /* Third */
     d==0;
     EEPROM.write(d,4);
     Alert==0;
-   EEPROM.write(0,Alert); 
-    }
+    EEPROM.write(0,Alert); 
    }
   }
  }
