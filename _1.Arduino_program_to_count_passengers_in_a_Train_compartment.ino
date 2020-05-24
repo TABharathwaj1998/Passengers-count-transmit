@@ -596,10 +596,7 @@ else
 {
 }
 }
-void loop() /* This is the function called by main calling function in void loop function.
-By equalizing these calling and called function *count=&c;
-Where “count” variable is equal to the address of “c” variable. The address of “c” contains a value which will be taken
-as “count” value by prefixing count variable with “asterix (*)”. This is similar for *flag=&a; */
+void loop() 
 {
 do
 {
@@ -717,7 +714,7 @@ so that e1 becomes zero and count is not varied. */
 e1==0;
 EEPROM.write(9,e1);
 }
-/* The following four conditions are same like the above two condition except the fact that it checks whether another
+/* The following six conditions are same like the above two condition except the fact that it checks whether another
 passenger crosses PIR 2 to 7 or 7 to 2. In case even after e1 as 1....... */
 else if((digitalRead(PIR8)==1&&digitalRead(PIR1)==0)&&(digitalRead(PIR7)==0&&digitalRead(PIR2)==1))
 {
@@ -1256,6 +1253,16 @@ else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==0)&&((digitalRead(PIR8)==0&&di
 counter=counter+1;
 EEPROM.write(8,counter);
 }
+else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==0)&&(digitalRead(PIR8)==1&&digitalRead(PIR1)==1))
+{
+counter=counter+1;
+EEPROM.write(8,counter);
+e2==0;
+EEPROM.write(10,e2);
+e1==1;
+EEPROM.write(9,e1);
+upcount(&e1,&e2,&e8,&e7,&counter,&Alerten);
+}
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR1)==0&&digitalRead(PIR8)==0))
 {
 e2==1;
@@ -1717,7 +1724,7 @@ Alertex==1;
 EEPROM.write(11,Alertex);
 }
 delay(665);
-/* PIR 9 for reducing twice decrement by one person. */
+/* PIR 3 is also used for reducing twice decrement by one person like PIR 9. */
 if(digitalRead(PIR9)==1&&digitalRead(PIR3)==1&&digitalRead(PIR6)==1&&digitalRead(PIR1)==1&&digitalRead(PIR2)==1&&digitalRead(PIR8)==1&&digitalRead(PIR7)==1)
 {
 delay(665);
@@ -1761,6 +1768,16 @@ else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&((digitalRead(PIR1)==0&&di
 {
 counter=counter-1;
 EEPROM.write(8,counter);
+}
+else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&(digitalRead(PIR1)==1&&digitalRead(PIR8)==1))
+{
+counter=counter-1;
+EEPROM.write(8,counter);
+e7==0;
+EEPROM.write(11,e7);
+e8==1;
+EEPROM.write(12,e8);
+downcount(&e1,&e2,&e8,&e7,&counter,&Alertex);
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0&&digitalRead(PIR1)==0))
 {
