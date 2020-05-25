@@ -57,8 +57,7 @@ byte digitPins[] = {10,11,12,13};
 byte segmentPins[] = {2, 3, 4, 5, 6, 7, 8, 9};
 bool resistorsOnSegments = true;
 byte hardwareConfig = COMMON_CATHODE;
-sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins,
-resistorsOnSegments);
+sevseg.begin(hardwareConfig, numDigits, digitPins, segmentPins,resistorsOnSegments);
 sevseg.setBrightness(100);
 DA=EEPROM.read(1);
 Status=EEPROM.read(2);
@@ -506,7 +505,7 @@ EEPROM.write(13,receive);
 }
 else /* After three times transmission to sender, if it receives light two times
 instead of three or four, then receiver will understand that Check value at sender
-side is still zero and sends light twice.*/
+side is still zero thus sends light twice.*/
 {
 digitalWrite(LSRSND1,HIGH);
 delay(50);
