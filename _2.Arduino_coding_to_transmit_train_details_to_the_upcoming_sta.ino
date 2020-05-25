@@ -136,7 +136,7 @@ EEPROM.write(5,lock);
 Step==1;
 EEPROM.write(6,Step);
 }
-else if(P1<20&&P2>20&&tno1!=0&&Error==0&&t==0) /* Same as above loop but
+else if(P1<20&&P2>20&&tno1!=0&&lock<2&&Error==0&&t==0) /* Same as above loop but
 takes place only when Error and t is zero and train number tno1 is not zero */
 {
 Tno==13;
@@ -1094,7 +1094,7 @@ EEPROM.write(4,Check);
 }
 }
 }
-else /* If no response from transmitter for three times, then time and Error are
+else /* If no response for three times, then time and Error are
 varied as usual. */
 {
 time==0;
@@ -2152,7 +2152,7 @@ EEPROM.write(6,Step);
 }
 else if(Step==2&&tno1!=0&&Fix==1)
 {
-delay(10000);
+delay(5000);
 if(TD<10) /* When Light detector placed at bottom of the train compartment has
 value lesser than 10 indicating Lesser light intensity, then the following if-elseifelseif-
 else containing different station codes for different light intensities are
@@ -2526,8 +2526,8 @@ else
 {
 }
 }
-else /* .......... after 3.5 seconds delay if no light detection happens due to power
-interruption at station or train, then the train changes the station code by itself
+else /* .......... after 5 seconds delay if no light detection happens due to power
+interruption at station, the train changes the station code by itself
 based on tno value thus reduces delay in transmission to the upcoming station. */
 {
 if((2<=i<=7)&&(tno%2==1)) /* Station code from 2 to 7 is used for Forward
@@ -2777,7 +2777,7 @@ HC12.print("AT+B9600"); /* .....Baud rate of 115200 decreases transmission
 distance,..... */
 digitalWrite(SETPIN,HIGH);
 }
-if((02<=stno<=07)&&(0<coach1<13)&&Error==0&&X!=0)
+if((02<=stno<=07)&&(0<coach1<13)&&Error==0&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter)); /* .......the train number, station code, platform number, coach number &
 counter are joined together, ....... */
@@ -2785,14 +2785,14 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((8<=stno<=13)&&(0<coach2<13)&&Error==0&&X!=0)
+else if((8<=stno<=13)&&(0<coach2<13)&&Error==0&&X==0)
 {
 details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach2*1000)+counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((02<=stno<=07)&&(0<coach1<13)&&Error==1&&X!=0)
+else if((02<=stno<=07)&&(0<coach1<13)&&Error==1&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
 +counter));
@@ -2800,7 +2800,7 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((8<=stno<=13)&&(0<coach2<13)&&Error==1&&X!=0)
+else if((8<=stno<=13)&&(0<coach2<13)&&Error==1&&X==0)
 {
 details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2808,7 +2808,7 @@ EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((02<=stno<=07)&&(0<coach1<13)&&Error==5&&X!=0)
+else if((02<=stno<=07)&&(0<coach1<13)&&Error==5&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2816,29 +2816,29 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((8<=stno<=13)&&(0<coach2<13)&&Error==5&&X!=0)
+else if((8<=stno<=13)&&(0<coach2<13)&&Error==5&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach1<13)&&Error==0&&(tno%2==1)&&X!=0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==0&&(tno%2==1)&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter));
 EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach2<13)&&Error==0&&(tno%2==0)&&X!=0)
+else if((14<=stno<=25)&&(0<coach2<13)&&Error==0&&(tno%2==0)&&X==0)
 {
 details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach2*1000)+counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach1<13)&&Error==1&&(tno%2==1)&&X!=0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==1&&(tno%2==1)&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
 +counter));
@@ -2846,7 +2846,7 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach2<13)&&Error==1&&(tno%2==0)&&X!=0)
+else if((14<=stno<=25)&&(0<coach2<13)&&Error==1&&(tno%2==0)&&X==0)
 {
 details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2854,7 +2854,7 @@ EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X!=0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2862,9 +2862,9 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach2<13)&&Error==5&&(tno%2==0)&&X!=0)
+else if((14<=stno<=25)&&(0<coach2<13)&&Error==5&&(tno%2==0)&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
@@ -2900,9 +2900,9 @@ EEPROM.write(20,tno);
 time++;
 EEPROM.write(18,time);
 }
-else if((700<TD<730)||time==275) /* When train number crosses from TD2 to
-TD1 before arriving at the station, Light source T2 placed near TD2 emits light
-with light intensity between 700 and 730 and T1 is in OFF condition. */
+else if((700<TD<730)||time==275) /* When train number crosses from TD1 to
+TD2 before arriving at the station, Light source T1 placed near TD1 emits light
+with light intensity between 700 and 730 and T2 remains in OFF condition. */
 {
 DA==1; /* Due to light emission, DA becomes 1 indicating Departure
 Arrival*/
@@ -3065,7 +3065,7 @@ Sts=d+4;
 EEPROM.write(29,Sts);
 HC12.write(Sts); /* .......... Sts value is sent to station with last digit as 4
 indicating "D" meaning Departure. With this value the station makes Status 4 so
-that Departed train erases when it goes over Light detectors.*/
+that departed train's details erases when it goes over light detectors.*/
 X==0;
 EEPROM.write(3,X);
 digitalWrite(TL1,LOW);
@@ -3075,8 +3075,8 @@ else
 {
 }
 }
+}
 else
 {
-}
 }
 }
