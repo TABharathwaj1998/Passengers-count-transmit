@@ -1,4 +1,4 @@
-         /* Arduino coding to transmit train details to the upcoming station */
+ /* Arduino coding to transmit train details to the upcoming station */
 #include<Wire.h>
 #include<EEPROM.h>
 #include<SoftwareSerial.h>
@@ -1289,6 +1289,10 @@ EEPROM.write(15,t);
 }
 else
 {
+}
+}
+else
+{
 Check==1;
 EEPROM.write(4,Check);
 digitalWrite(LSRSND2,HIGH);
@@ -1737,7 +1741,6 @@ else
 }
 }
 }
-}
 while(Check==0&&send==coach1)
 {
 if(digitalRead(LSRRCVE1)==1)
@@ -1899,7 +1902,6 @@ EEPROM.write(6,Step);
 }
 else
 {
-}
 }
 }
 }
