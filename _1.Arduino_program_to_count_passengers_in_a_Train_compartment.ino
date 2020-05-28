@@ -937,6 +937,7 @@ else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==0)&&((digitalRead(PIR8)==0&&di
 {
 counter=counter+1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR8)==1)&&(digitalRead(PIR2)==0&&digitalRead(PIR1)==0))
 {
@@ -1252,6 +1253,7 @@ else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==0)&&((digitalRead(PIR8)==0&&di
 {
 counter=counter+1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==0)&&(digitalRead(PIR8)==1&&digitalRead(PIR1)==1))
 {
@@ -1262,6 +1264,7 @@ EEPROM.write(10,e2);
 e1==1;
 EEPROM.write(9,e1);
 upcount(&e1,&e2,&e8,&e7,&counter,&Alerten);
+continue;
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR1)==0&&digitalRead(PIR8)==0))
 {
@@ -1454,6 +1457,7 @@ else if((digitalRead(PIR8)==1&&digitalRead(PIR1)==0)&&((digitalRead(PIR7)==0&&di
 {
 counter=counter+1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR8)==1&&digitalRead(PIR7)==1)&&(digitalRead(PIR1)==0&&digitalRead(PIR2)==0))
 {
@@ -1768,6 +1772,7 @@ else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&((digitalRead(PIR1)==0&&di
 {
 counter=counter-1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&(digitalRead(PIR1)==1&&digitalRead(PIR8)==1))
 {
@@ -1778,6 +1783,7 @@ EEPROM.write(11,e7);
 e8==1;
 EEPROM.write(12,e8);
 downcount(&e1,&e2,&e8,&e7,&counter,&Alertex);
+continue;
 }
 else if((digitalRead(PIR7)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0&&digitalRead(PIR1)==0))
 {
@@ -2006,6 +2012,7 @@ else if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&((digitalRead(PIR2)==0&&di
 {
 counter=counter-1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR1)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0&&digitalRead(PIR7)==0))
 {
@@ -2284,10 +2291,11 @@ if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&(digitalRead(PIR1)==0&&digitalR
 counter=counter-1;
 EEPROM.write(8,counter);
 }
-else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&(digitalRead(PIR1)==0&&digitalRead(PIR8)==1))
+else if((digitalRead(PIR2)==1&&digitalRead(PIR7)==0)&&((digitalRead(PIR1)==0&&digitalRead(PIR8)==1)||(digitalRead(PIR1)==1&&digitalRead(PIR8)==0)))
 {
 counter=counter-1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR2)==1&&digitalRead(PIR1)==1)&&(digitalRead(PIR7)==0&&digitalRead(PIR8)==0))
 {
@@ -2569,10 +2577,11 @@ if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalR
 counter=counter-1;
 EEPROM.write(8,counter);
 }
-else if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==1))
+else if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&((digitalRead(PIR2)==0&&digitalRead(PIR7)==1)||(digitalRead(PIR2)==1&&digitalRead(PIR7)==0)))
 {
 counter=counter-1;
 EEPROM.write(8,counter);
+continue;
 }
 else if((digitalRead(PIR1)==1&&digitalRead(PIR2)==1)&&(digitalRead(PIR8)==0&&digitalRead(PIR7)==0))
 {
@@ -2616,7 +2625,8 @@ else if((digitalRead(PIR1)==1&&digitalRead(PIR8)==1)&&(digitalRead(PIR7)==0&&dig
 e8==1;
 EEPROM.write(12,e8);
 do
-{ if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==0))
+{ 
+if((digitalRead(PIR1)==1&&digitalRead(PIR8)==0)&&(digitalRead(PIR2)==0&&digitalRead(PIR7)==0))
 {
 counter=counter-1;
 EEPROM.write(8,counter);
