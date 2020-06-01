@@ -21,7 +21,7 @@ int sensorpin=2;
 int P1, P2, TD;
 static long int
 d=0,details=0,counter=0,c[50],send=0,S=0,receive=0,Check=0,coach1=0,coach2
-=0,coach=0,Tno=0,tno=0,tno1=0,tno2=0,i=0,j=0,k=0,X=0,lock=0,t=0,r=0,Error=0,time=0,Fix=0;
+=0,coach=0,Tno=0,tno=0,tno1=0,tno2=0,i=0,j=0,k=0,X=0,lock=0,t=0,r=0,Error=0,time=0,Fix=0,duration=0;
 int stno[]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
 int pltfmno[]={1,2};
 static int s=0,a=0,flag=0;
@@ -88,6 +88,7 @@ counter=EEPROM.read(26);
 details=EEPROM.read(27);
 d=EEPROM.read(28);
 Sts=EEPROM.read(29);
+duration=EEPROM.read(30);
 }
 void loop()
 {
@@ -107,6 +108,8 @@ Check==0;
 EEPROM.write(4,Check);
 digitalWrite(TL1,LOW);
 digitalWrite(TL2,LOW);
+duration==0;
+EEPROM.write(30,duration);
 }
 TD=analogRead(sensorpin); /* P1 and P2 stands for Force Sensing Resistor fixed
 at the side of Gangway connectors. */
@@ -2748,18 +2751,7 @@ else
 {
 }
 }
-if(P1<20&&P2<20) /* To check whether compartment is detached. */
-{
-lock==0;
-EEPROM.write(5,lock);
-Step==1;
-EEPROM.write(6,Step);
-tno1==0;
-EEPROM.write(7,tno1);
-coach1==0;
-EEPROM.write(8,coach1);
-}
-if((730<TD<750||flag==1)||(DA==1||time==250)) /* When Light detector fixed
+if((730<TD<750||flag==1)||(DA==1||duration==5750)) /* When Light detector fixed
 at train's bottom detects intensity at the value between 750 and 750, then flag
 becomes 1 from 0, ......*/
 {
@@ -2902,21 +2894,22 @@ EEPROM.write(20,tno);
 time++;
 EEPROM.write(18,time);
 }
-else if((700<TD<730)||time==275) /* When train number crosses from TD1 to
+else if((700<TD<730)||duration==6000) /* When train number crosses from TD1 to
 TD2 before arriving at the station, Light source T1 placed near TD1 emits light
 with light intensity between 700 and 730 and T2 remains in OFF condition. */
 {
 DA==1; /* Due to light emission, DA becomes 1 indicating Departure
 Arrival*/
 EEPROM.write(1,DA);
-time=time*0;
-EEPROM.write(18,time);
+duration=duration*0;
+EEPROM.write(30,duration);
 }
-else if(TD<700) /* If no light emission occurs, then time is incremented so that
-Train sends details if time is 250 or sends Status if time is 275 and makes time value
-0. */
+else if(TD<700) /* If no light emission occurs, then duration is incremented so that
+Train sends details if value is 5750 or sends Status if 6000. Value that reaches 1000 from 0 using while loop
+without delay takes 20 seconds. So to reach 6000, it takes 120 seconds i.e 2 minutes. Time taken for movement from each and
+every station to another is collected and calculated as average time that is used by duration variable. */
 {
-while(time<=250&&TD<700)
+while(duration<=5750&&TD<700)
 { /* If Laser receiver sends light, then transmitter sends light four times so that
 Receiver can collect Train number or Station code. */
 if(digitalRead(LSRRCVE1)==1&&t==0)
@@ -2942,8 +2935,8 @@ delay(50);
 digitalWrite(LSRSND1,HIGH);
 delay(50);
 digitalWrite(LSRSND1,LOW);
-time==250;
-EEPROM.write(18,time);
+duration==5750;
+EEPROM.write(30,duration);
 }
 }
 }
@@ -2970,8 +2963,8 @@ delay(50);
 digitalWrite(LSRSND2,HIGH);
 delay(50);
 digitalWrite(LSRSND2,LOW);
-time==250;
-EEPROM.write(18,time);
+duration==5750;
+EEPROM.write(30,duration);
 }
 }
 }
@@ -2982,8 +2975,8 @@ Step==1;
 EEPROM.write(6,Step);
 Fix==1;
 EEPROM.write(11,Fix);
-time==250;
-EEPROM.write(18,time);
+duration==5750;
+EEPROM.write(30,duration);
 loop();
 }
 else if(digitalRead(LSRRCVE2)==1&&t!=2&&lock<2)
@@ -2992,14 +2985,14 @@ Step==1;
 EEPROM.write(6,Step);
 Fix==1;
 EEPROM.write(11,Fix);
-time==250;
-EEPROM.write(18,time);
+duration==5750;
+EEPROM.write(30,duration);
 loop();
 }
 else
 {
-time++;
-EEPROM.write(18,time);
+duration++;
+EEPROM.write(30,duration);
 }
 }
 }
@@ -3011,9 +3004,9 @@ last, then......... */
 {
 Status==1; /* ....... Status becomes 1. */
 EEPROM.write(2,Status);
-if(digitalRead(PIR)==0&&time==10&&Status==1)
+if(digitalRead(PIR)==0&&duration==10&&Status==1)
 {
-Status==2; /* Status becomes 2 only when time becomes 10, because after
+Status==2; /* Status becomes 2 only when duration becomes 10, because after
 reaching TD2, it takes time of about 15 seconds to reach the platform completely.
 10 seconds and remaining few seconds takes place during loop process of Step 4.
 */
@@ -3031,8 +3024,8 @@ Sts=d+1;
 EEPROM.write(29,Sts);
 HC12.write(Sts); /* ...... it sends Sts adding "d" with 1 where 1 indicates Letter
 "A" meaning arrival */
-time++;
-EEPROM.write(18,time);
+duration++;
+EEPROM.write(30,duration);
 delay(1000);
 if(digitalRead(LSRRCVE)==1&&DA==1&&Status==1) /* This indicates Laser
 light emittance from station for Confirmation of Train number if receives a wrong
@@ -3044,11 +3037,11 @@ digitalWrite(TL2,HIGH);
 }
 else if((digitalRead(PIR)==1||digitalRead(PIR)==0)&&Status==1)
 {
-time++;
-EEPROM.write(18,time);
+duration++;
+EEPROM.write(30,duration);
 delay(1000);
 }
-else if(digitalRead(PIR)==1&&time==10&&Status==2) /* When train departs as
+else if(digitalRead(PIR)==1&&duration==30&&Status==2) /* When train departs as
 shown by PIR detection and Status value of 2, then........ */
 {
 Step==0;
@@ -3072,6 +3065,8 @@ X==0;
 EEPROM.write(3,X);
 digitalWrite(TL1,LOW);
 digitalWrite(TL2,LOW);
+duration==0;
+EEPROM.write(30,duration);
 }
 else
 {
