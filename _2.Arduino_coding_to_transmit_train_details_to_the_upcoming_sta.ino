@@ -467,7 +467,7 @@ else if(digitalRead(LSRRCVE1)==1&&coach1>12)
 Tno=coach1+1;
 EEPROM.write(9,Tno);
 sevseg.refreshDisplay();
-sevseg.setNumber(Tno,0);
+sevseg.setNumber(Tno,0);  /* This will display train number above the compartment. */
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND1,HIGH);
