@@ -246,6 +246,8 @@ else if(digitalRead(LSRRCVE1)==1&&coach1>12)
 {
 Tno=coach1+1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND1,HIGH);
@@ -262,6 +264,8 @@ else if(digitalRead(LSRRCVE1)==1&&coach1>12&&receive==0)
 {
 Tno=coach1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND1,HIGH);
@@ -451,6 +455,8 @@ else if(digitalRead(LSRRCVE1)==1&&coach1>12)
 {
 Tno=coach1+1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND1,HIGH);
@@ -467,6 +473,8 @@ else if(digitalRead(LSRRCVE1)==1&&coach1>12&&receive==0)
 {
 Tno=coach1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND1,HIGH);
@@ -1246,6 +1254,8 @@ else if(digitalRead(LSRRCVE2)==1&&coach1>12)
 {
 Tno=coach1+1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND2,HIGH);
@@ -1270,6 +1280,8 @@ else if(digitalRead(LSRRCVE2)==1&&coach1>12&&receive==0)
 {
 Tno==coach1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND2,HIGH);
@@ -1463,6 +1475,8 @@ else if(digitalRead(LSRRCVE2)==1&&coach1>12)
 {
 Tno=coach1+1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND2,HIGH);
@@ -1489,6 +1503,8 @@ else if(digitalRead(LSRRCVE2)==1&&coach1>12&&receive==0)
 {
 Tno==coach1;
 EEPROM.write(9,Tno);
+sevseg.refreshDisplay();
+sevseg.setNumber(Tno,0);
 receive=receive*0;
 EEPROM.write(13,receive);
 digitalWrite(LSRSND2,HIGH);
@@ -2744,8 +2760,8 @@ count=(counter*10)+4;
 else
 {
 }
-sevseg.setNumber(count,1);
 sevseg.refreshDisplay();
+sevseg.setNumber(count,1);
 }
 else
 {
