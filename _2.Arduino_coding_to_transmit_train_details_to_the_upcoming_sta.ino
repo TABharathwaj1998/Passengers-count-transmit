@@ -126,6 +126,17 @@ EEPROM.write(7,tno1);
 coach1==0;
 EEPROM.write(8,coach1);
 }
+else if(P1<20&&P2>20) /* If P2 lower...... */
+{
+lock==0; /* .......lock becomes zero,..... */
+EEPROM.write(5,lock);
+Step==1;
+EEPROM.write(6,Step);
+coach==coach1;     /* .....coach1 value is given to coach variable and..... */
+EEPROM.write(10,coach);
+coach1==tno1;     /* ........tno1 value is given to coach1. */
+EEPROM.write(8,coach1)
+}
 else if(P1<20&&P2>20&&tno1==0) /* 1st compartment of Train number "Tno" 13
 which is used by "coach1" variable will be done if P2 is higher than 20, P1 lower
 than 20 and tno1 value is zero. */
@@ -2889,8 +2900,8 @@ code is between 2 and 7 and tno2 and coach2 is used if between 8 and 13. If
 between 14 and 25, tno takes tno1 value if light intensity is between 750 and 775
 and tno2 value if between 775 and 800. "Tno" variable is fixed whereas "tno"
 variable is varied if station with multiple platform arrives.*/
-delay(2000);
-if(HC12.available()==1) /* After 2 seconds delay, if train compartment receives
+delay(1000);
+if(HC12.available()==1) /* After 1 second delay, if train compartment receives
 detail from station...... */
 {
 X=HC12.read();
@@ -2984,7 +2995,7 @@ EEPROM.write(30,duration);
 }
 }
 }
-else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=1) /* If receiver sends light
+else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=2) /* If receiver sends light
 when "Error" is 1, then it goes to Step 1 for transmission*/
 {
 Step==1;
@@ -2995,7 +3006,7 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE2)==1&&t!=2&&lock<2)
+else if(digitalRead(LSRRCVE2)==1&&t!=1)
 {
 Step==1;
 EEPROM.write(6,Step);
