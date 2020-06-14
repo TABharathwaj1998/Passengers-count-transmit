@@ -19,9 +19,8 @@ int sensorpin=2;
 #define CNTRCVD 30
 #define SETPIN 43
 int P1, P2, TD;
-static long int
-d=0,details=0,counter=0,c[50],send=0,S=0,receive=0,Check=0,coach1=0,coach2
-=0,coach=0,Tno=0,tno=0,tno1=0,tno2=0,i=0,j=0,k=0,X=0,lock=0,t=0,r=0,Error=0,time=0,Fix=0,duration=0;
+static long int d=0,details=0,counter=0,c[50],send=0,S=0,receive=0,Check=0,coach1=0,coach2=0,
+coach=0,Tno=0,tno=0,tno1=0,tno2=0,i=0,j=0,k=0,X=0,lock=0,t=0,r=0,Error=0,time=0,Fix=0,duration=0;
 int stno[]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
 int pltfmno[]={1,2};
 static int s=0,a=0,flag=0;
@@ -2184,7 +2183,8 @@ EEPROM.write(6,Step);
 }
 else if(Step==2&&tno1!=0&&Fix==1)
 {
-delay(5000);
+while(0<receive<=1500)
+{
 if(TD<10) /* When Light detector placed at bottom of the train compartment has
 value lesser than 10 indicating Lesser light intensity, then the following if-elseifelseif-
 else containing different station codes for different light intensities are
@@ -2558,9 +2558,13 @@ else
 {
 }
 }
-else /* .......... after 5 seconds delay if no light detection happens due to power
-interruption at station, the train changes the station code by itself
-based on tno value thus reduces delay in transmission to the upcoming station. */
+else
+{
+receive++;
+EEPROM.write(13,receive);
+}
+}
+if(receive==1500)
 {
 if((2<=i<=7)&&(tno%2==1)) /* Station code from 2 to 7 is used for Forward
 Journey. */
@@ -2592,11 +2596,11 @@ EEPROM.write(21,i);
 else
 {
 }
+receive==0;
+EEPROM.write(13,receive);
 }
 flag=flag*0;
 EEPROM.write(23,flag);
-time=time*0;
-EEPROM.write(18,time);
 TD=analogRead(sensorpin);
 P1=analogRead(sensorpin);
 P2=analogRead(sensorpin);
@@ -2727,8 +2731,18 @@ tno2=tno1+1;
 EEPROM.write(25,tno2);
 lock==2;
 EEPROM.write(5,lock);
+if(i==0)
+{
+i==14;
+EEPROM.write(21,i);
+Step==2;
+EEPROM.write(6,Step);
+}
+else
+{
 Step==4;
 EEPROM.write(6,Step);
+}
 }
 else if(Step==4)
 {
@@ -2875,7 +2889,7 @@ EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X==0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X==0)  /* Due to coach repair, Train number is received from 1st compartment and sent to last i.e 12th compartment. That compartment will send coach1 value as 1 to other compartments. So Error as value 5 will compensate by merging coach2 value which is 12 when coach1 value is 1. */
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2890,8 +2904,8 @@ details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*100
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
-} /* Due to coach repair, Train number is received from 1st compartment and sent to last i.e 12th compartment. That compartment will send coach1 value as 1 to other compartments. So Error as value 5 will compensate by merging coach2 value which is 12 when coach1 value is 1. */
-else
+}
+else 
 {
 }
 HC12.write(details); /* ........ and sent to the upcoming station. If Error is 1, then
@@ -2970,10 +2984,10 @@ EEPROM.write(30,duration);
 else if(digitalRead(LSRRCVE2)==1&&t==0)
 {
 delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0)
 {
 delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0)
 {
 digitalWrite(LSRSND2,HIGH);
 delay(50);
@@ -2995,9 +3009,15 @@ EEPROM.write(30,duration);
 }
 }
 }
-else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=2) /* If receiver sends light
-when "Error" is 1, then it goes to Step 1 for transmission*/
+else if(digitalRead(LSRRCVE2)==1&&Error==1&&t!=1) /* If receiver sends light
+when "Error" is 1, then it goes to Step 1 for train number transmission*/
 {
+coach==coach1;
+EEPROM.write(10,coach);
+coach1==tno1;
+EEPROM.write(8,coach1);
+lock==0;
+EEPROM.write(5,lock);
 Step==1;
 EEPROM.write(6,Step);
 Fix==1;
@@ -3006,7 +3026,22 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE2)==1&&t!=1)
+else if(digitalRead(LSRRCVE2)==1&&Error==2&&t!=1) /* If receiver sends light
+when "Error" is 2, then it goes to Step 1 for coach number transmission*/
+{
+coach1==coach;
+EEPROM.write(8,coach1);
+lock==1;
+EEPROM.write(5,lock);
+Step==1;
+EEPROM.write(6,Step);
+Fix==1;
+EEPROM.write(11,Fix);
+duration==5750;
+EEPROM.write(30,duration);
+loop();
+}
+else if(digitalRead(LSRRCVE1)==1&&t!=1)
 {
 Step==1;
 EEPROM.write(6,Step);
