@@ -2914,8 +2914,8 @@ code is between 2 and 7 and tno2 and coach2 is used if between 8 and 13. If
 between 14 and 25, tno takes tno1 value if light intensity is between 750 and 775
 and tno2 value if between 775 and 800. "Tno" variable is fixed whereas "tno"
 variable is varied if station with multiple platform arrives.*/
-delay(1000);
-if(HC12.available()==1) /* After 1 second delay, if train compartment receives
+delay(500);
+if(HC12.available()==1) /* After 0.5 second delay, if train compartment receives
 detail from station...... */
 {
 X=HC12.read();
