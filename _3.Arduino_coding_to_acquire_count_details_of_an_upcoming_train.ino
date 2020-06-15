@@ -248,52 +248,40 @@ void loop()
   }
   /* The train count details is collected by the following loops….. */
   if((104100000<=x<=104112999)&&d==Tno) /* ….first loop..... */ 
- {
+  {
    counter=(x-104100000);   /* Extracts train number 1. */ 
    EEPROM.write(5,counter);
    z==4;                        
    EEPROM.write(6,z);
    p==1;
    EEPROM.write(7,p);
-   if(Alert==1)
-   {
-    Confirmed==0;      
-    EEPROM.write(8,Confirmed);        
-   }
-   else
-   {
-    Confirmed==1;      
-    EEPROM.write(8,Confirmed);
-   }
- }
- else if(210100000<=x<=210112999&&d==Tno) /* Second loop..... */
- {
+   Alert==0;    
+   EEPROM.write(0,Alert);
+   Confirmed==1;      
+   EEPROM.write(8,Confirmed);
+  }
+  else if(210100000<=x<=210112999&&d==Tno) /* Second loop..... */
+  {
    counter=(x-211100000);   /* .....Extracts train number 2. */
    EEPROM.write(5,counter);
    z==10;
    EEPROM.write(6,z);
    p==1;
    EEPROM.write(7,p);
-   if(Alert==1)
-   {
-    Confirmed==0;      
-    EEPROM.write(8,Confirmed);        
-   }
-   else
-   {
-    Confirmed==1;      
-    EEPROM.write(8,Confirmed);
-   }
- }
- else if((104300000<=x<=104312999)&&d==Tno)  /* if 4th digit from LHS contains 3, it indicates power interruption with next compartment which does not receives details from this compartment that sends x value to the station. */ 
- {
+   Alert==0;    
+   EEPROM.write(0,Alert);
+   Confirmed==1;      
+   EEPROM.write(8,Confirmed);
+  }
+  else if((104300000<=x<=104312999)&&d==Tno)  /* if 4th digit from LHS contains 3, it indicates power interruption with next compartment which does not receives details from this compartment that sends x value to the station. */ 
+  {
    counter=(x-104300000); 
    EEPROM.write(5,counter);
    z==4;                        
    EEPROM.write(6,z);
    if(Confirmed==1) /* If train number is confirmed, then Error and Alert becomes 0. */
    {
-    p==3;
+    p==1;
     EEPROM.write(7,p);  
     Error==0;
     EEPROM.write(9,Error);   
@@ -307,16 +295,16 @@ void loop()
     Alert==1;
     EEPROM.write(0,Alert);
    }
- }
- else if(210300000<=x<=210312999&&d==Tno)
- {
+  }
+  else if(210300000<=x<=210312999&&d==Tno)
+  {
    counter=(x-211300000);
    EEPROM.write(5,counter);
    z==10;
    EEPROM.write(6,z);
    if(Confirmed==1)
    {
-    p==3;
+    p==1;
     EEPROM.write(7,p);   
     Error==0;
     EEPROM.write(9,Error);   
@@ -329,56 +317,10 @@ void loop()
     EEPROM.write(7,p);
     Alert==1;
     EEPROM.write(0,Alert);
-   }
- }
- else if((104400000<=x<=104412999)&&d==Tno) /*  4th digit as 4 indicates error similar to 3 as digit if Platform is 2. */
- {
-   counter=(x-104400000);    
-   EEPROM.write(5,counter);
-   z==4;                        
-   EEPROM.write(6,z);
-   if(Confirmed==1)
-   {
-    p==2;
-    EEPROM.write(7,p);      
-    Error==0;
-    EEPROM.write(9,Error);   
-    Alert==0;
-    EEPROM.write(0,Alert);  
-   }
-   else
-   {      
-    p==4;
-    EEPROM.write(7,p);
-    Alert==1;
-    EEPROM.write(0,Alert);
-   }
-}
- else if(210400000<=x<=210412999&&d==Tno)   
- {
-   counter=(x-211400000);        
-   EEPROM.write(5,counter);
-   z==10;
-   EEPROM.write(6,z);
-   if(Confirmed==1)
-   {
-    p==2;
-    EEPROM.write(7,p);      
-    Error==0;
-    EEPROM.write(9,Error);  
-    Alert==0;
-    EEPROM.write(0,Alert);   
-   }
-   else
-   {      
-    p==4;
-    EEPROM.write(7,p);
-    Alert==1;
-    EEPROM.write(0,Alert);
-   }
- }
- else if(((100100000<x<=104100999)||(104112999<x<=104300999)||(210100000<x<=210100999)||(210112999<x<=210300999))&&d==Tno) /* If the upcoming train sends a wrong station code……... */
- {
+   }/* Like 3 instead of 1, 4th digit as 4 indicates error if Platform is 2. */
+  }
+  else if(((100100000<x<=104100999)||(104112999<x<=104300999)||(210100000<x<=210100999)||(210112999<x<=210300999))&&d==Tno) /* If the upcoming train sends a wrong station code……... */
+  {
    Check=x*(10^-5);  /* ………Check variable extracts Train number……….*/
    EEPROM.write(10,Check);
    counter=x-(Check*(10^5));    /* …….and subtracted with x containing upcoming train details. */
@@ -462,7 +404,8 @@ void loop()
   else if((d!=Tno)&&(100000000<x<=999999999)) /* If not equal, then Arduino will....... */
   {
    digitalWrite(ALRTOUT,HIGH); /* ..... send to Arduino that acquires this detail, checks whether train is present at the station checked by train number and sends to that platform */
-  /* Train detail which was extracted will be merged again and sent. */  if(digitalRead(ALRTIN)==1&&(100000000<=x<=199999999))
+  /* Train detail which was extracted will be merged again and sent. */  
+   if(digitalRead(ALRTIN)==1&&(100000000<=x<=199999999))
    {
     Wire.beginTransmission(13);
     Wire.write((d*10^8)+(x-100000000));
