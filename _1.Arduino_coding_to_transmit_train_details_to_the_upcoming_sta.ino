@@ -2659,7 +2659,7 @@ else
 {
 }
 }
-else if(Step==3) /* At Step 3, coach1 as 1 will become 12 for coach2, 2 will become
+else if(Step==3&&lock==2) /* At Step 3, coach1 as 1 will become 12 for coach2, 2 will become
 11 and goes on. tno1 will be added by 1 to give tno2. */
 {
 coach1==coach;
@@ -2731,7 +2731,7 @@ tno2=tno1+1;
 EEPROM.write(25,tno2);
 lock==2;
 EEPROM.write(5,lock);
-if(i==0)
+if(i==0) /* At initial stage, i becomes 14 which means array value = Station code 14. */
 {
 i==14;
 EEPROM.write(21,i);
@@ -2820,9 +2820,9 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((8<=stno<=13)&&(0<coach2<13)&&Error==0&&X==0)
+else if((8<=stno<=13)&&(0<coach1<13)&&Error==0&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach2*1000)+counter));
+details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach2*1000);
 EEPROM.write(28,d);
@@ -2835,15 +2835,15 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((8<=stno<=13)&&(0<coach2<13)&&Error==1&&X==0)
+else if((8<=stno<=13)&&(0<coach1<13)&&Error==1&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
 +counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((02<=stno<=07)&&(0<coach1<13)&&Error==5&&X==0)
+else if((02<=stno<=07)&&(0<coach2<13)&&Error==5&&X==0)
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2866,9 +2866,9 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach2<13)&&Error==0&&(tno%2==0)&&X==0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==0&&(tno%2==0)&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach2*1000)+counter));
+details=((tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+((coach1*1000)+counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+(pltfmno[j]*100000)+(coach2*1000);
 EEPROM.write(28,d);
@@ -2881,15 +2881,15 @@ EEPROM.write(27,details);
 d=(tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach2<13)&&Error==1&&(tno%2==0)&&X==0)
+else if((14<=stno<=25)&&(0<coach1<13)&&Error==1&&(tno%2==0)&&X==0)
 {
-details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
+details=((tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach1*1000)
 +counter));
 EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach2*1000);
 EEPROM.write(28,d);
 }
-else if((14<=stno<=25)&&(0<coach1<13)&&Error==5&&(tno%2==1)&&X==0)  /* Due to coach repair, Train number is received from 1st compartment and sent to last i.e 12th compartment. That compartment will send coach1 value as 1 to other compartments. So Error as value 5 will compensate by merging coach2 value which is 12 when coach1 value is 1. */
+else if((14<=stno<=25)&&(0<coach2<13)&&Error==5&&(tno%2==1)&&X==0)  
 {
 details=((tno1*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+((coach2*1000)
 +counter));
@@ -2905,6 +2905,11 @@ EEPROM.write(27,details);
 d=(tno2*100000000)+(stno[i]*1000000)+((pltfmno[j]+2)*100000)+(coach1*1000);
 EEPROM.write(28,d);
 }
+else if(X!=0)
+{
+details=(X*1000)+counter;
+EEPROM.write(27,details);
+}
 else 
 {
 }
@@ -2914,6 +2919,7 @@ code is between 2 and 7 and tno2 and coach2 is used if between 8 and 13. If
 between 14 and 25, tno takes tno1 value if light intensity is between 750 and 775
 and tno2 value if between 775 and 800. "Tno" variable is fixed whereas "tno"
 variable is varied if station with multiple platform arrives.*/
+/* Due to coach repair, Train number is received from 1st compartment and sent to last i.e 12th compartment. That compartment will send coach1 value as 1 to other compartments. So Error as value 5 will compensate by merging coach2 value which is 12 when coach1 value is 1. */
 delay(500);
 if(HC12.available()==1) /* After 0.5 second delay, if train compartment receives
 detail from station...... */
