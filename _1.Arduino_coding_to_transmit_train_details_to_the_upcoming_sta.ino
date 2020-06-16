@@ -2959,35 +2959,7 @@ every station to another is collected and calculated as average time that is use
 while(duration<=5750&&TD<700)
 { /* If Laser receiver sends light, then transmitter sends light four times so that
 Receiver can collect Train number or Station code. */
-if(digitalRead(LSRRCVE1)==1&&t==0)
-{
-delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
-{
-delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
-{
-digitalWrite(LSRSND1,HIGH);
-delay(50);
-digitalWrite(LSRSND1,LOW);
-delay(50);
-digitalWrite(LSRSND1,HIGH);
-delay(50);
-digitalWrite(LSRSND1,LOW);
-delay(50);
-digitalWrite(LSRSND1,HIGH);
-delay(50);
-digitalWrite(LSRSND1,LOW);
-delay(50);
-digitalWrite(LSRSND1,HIGH);
-delay(50);
-digitalWrite(LSRSND1,LOW);
-duration==5750;
-EEPROM.write(30,duration);
-}
-}
-}
-else if(digitalRead(LSRRCVE2)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0)
 {
 delay(50);
 if(digitalRead(LSRRCVE2)==1&&t==0)
@@ -3015,6 +2987,34 @@ EEPROM.write(30,duration);
 }
 }
 }
+else if(digitalRead(LSRRCVE1)==1&&t==0)
+{
+delay(50);
+if(digitalRead(LSRRCVE1)==1&&t==0)
+{
+delay(50);
+if(digitalRead(LSRRCVE1)==1&&t==0)
+{
+digitalWrite(LSRSND1,HIGH);
+delay(50);
+digitalWrite(LSRSND1,LOW);
+delay(50);
+digitalWrite(LSRSND1,HIGH);
+delay(50);
+digitalWrite(LSRSND1,LOW);
+delay(50);
+digitalWrite(LSRSND1,HIGH);
+delay(50);
+digitalWrite(LSRSND1,LOW);
+delay(50);
+digitalWrite(LSRSND1,HIGH);
+delay(50);
+digitalWrite(LSRSND1,LOW);
+duration==5750;
+EEPROM.write(30,duration);
+}
+}
+} 
 else if(digitalRead(LSRRCVE2)==1&&Error==1&&t!=1) /* If receiver sends light
 when "Error" is 1, then it goes to Step 1 for train number transmission*/
 {
@@ -3047,8 +3047,28 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE1)==1&&t!=1)
+else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=2)
 {
+coach==coach1;
+EEPROM.write(10,coach);
+coach1==tno1;
+EEPROM.write(8,coach1);
+lock==0;
+EEPROM.write(5,lock);
+Step==1;
+EEPROM.write(6,Step);
+Fix==1;
+EEPROM.write(11,Fix);
+duration==5750;
+EEPROM.write(30,duration);
+loop();
+}
+else if(digitalRead(LSRRCVE1)==1&&Error==2&&t!=2)
+{
+coach1==coach;
+EEPROM.write(8,coach1);
+lock==1;
+EEPROM.write(5,lock);
 Step==1;
 EEPROM.write(6,Step);
 Fix==1;
