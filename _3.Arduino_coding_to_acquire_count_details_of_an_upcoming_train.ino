@@ -257,8 +257,16 @@ void loop()
    EEPROM.write(7,p);
    Alert==0;    
    EEPROM.write(0,Alert);
-   Confirmed==1;      
-   EEPROM.write(8,Confirmed);
+   if(Error==1)
+   {
+    Confirmed==0;      
+    EEPROM.write(8,Confirmed);
+   }
+   else 
+   {
+    Confirmed==1;      
+    EEPROM.write(8,Confirmed);
+   }
   }
   else if(210100000<=x<=210112999&&d==Tno) /* Second loop..... */
   {
