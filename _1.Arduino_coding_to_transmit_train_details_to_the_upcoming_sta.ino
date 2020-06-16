@@ -2729,8 +2729,10 @@ else
 }
 tno2=tno1+1;
 EEPROM.write(25,tno2);
-lock==2;
-EEPROM.write(5,lock);
+sevseg.refreshDisplay();
+sevseg.setNumber(tno1,0);
+sevseg.refreshDisplay();
+sevseg.setNumber(tno2,0); 
 if(i==0) /* At initial stage, i becomes 14 which means array value = Station code 14. */
 {
 i==14;
