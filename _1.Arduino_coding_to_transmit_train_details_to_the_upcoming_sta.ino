@@ -2792,6 +2792,9 @@ else
 {
 }
 }
+TD=analogRead(sensorpin); 
+P1=analogRead(sensorpin);
+P2=analogRead(sensorpin);
 if((730<TD<750||flag==1)||(DA==1||duration==5750)) /* When Light detector fixed
 at train's bottom detects intensity at the value between 750 and 750, then flag
 becomes 1 from 0, ......*/
@@ -2959,13 +2962,13 @@ every station to another is collected and calculated as average time that is use
 while(duration<=5750&&TD<700)
 { /* If Laser receiver sends light, then transmitter sends light four times so that
 Receiver can collect Train number or Station code. */
-if(digitalRead(LSRRCVE2)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0&&P2>20)
 {
 delay(50);
-if(digitalRead(LSRRCVE2)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0&&P2>20)
 {
 delay(50);
-if(digitalRead(LSRRCVE2)==1&&t==0)
+if(digitalRead(LSRRCVE2)==1&&t==0&&P2>20)
 {
 digitalWrite(LSRSND2,HIGH);
 delay(50);
@@ -2987,13 +2990,13 @@ EEPROM.write(30,duration);
 }
 }
 }
-else if(digitalRead(LSRRCVE1)==1&&t==0)
+else if(digitalRead(LSRRCVE1)==1&&t==0&&P1>20)
 {
 delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
+if(digitalRead(LSRRCVE1)==1&&t==0&&P1>20)
 {
 delay(50);
-if(digitalRead(LSRRCVE1)==1&&t==0)
+if(digitalRead(LSRRCVE1)==1&&t==0&&P1>20)
 {
 digitalWrite(LSRSND1,HIGH);
 delay(50);
@@ -3015,7 +3018,7 @@ EEPROM.write(30,duration);
 }
 }
 } 
-else if(digitalRead(LSRRCVE2)==1&&Error==1&&t!=1) /* If receiver sends light
+else if(digitalRead(LSRRCVE2)==1&&Error==1&&t!=1&&P2>20) /* If receiver sends light
 when "Error" is 1, then it goes to Step 1 for train number transmission*/
 {
 coach==coach1;
@@ -3032,7 +3035,7 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE2)==1&&Error==2&&t!=1) /* If receiver sends light
+else if(digitalRead(LSRRCVE2)==1&&Error==2&&t!=1&&P2>20) /* If receiver sends light
 when "Error" is 2, then it goes to Step 1 for coach number transmission*/
 {
 coach1==coach;
@@ -3047,7 +3050,7 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=2)
+else if(digitalRead(LSRRCVE1)==1&&Error==1&&t!=2&&P1>20)
 {
 coach==coach1;
 EEPROM.write(10,coach);
@@ -3063,7 +3066,7 @@ duration==5750;
 EEPROM.write(30,duration);
 loop();
 }
-else if(digitalRead(LSRRCVE1)==1&&Error==2&&t!=2)
+else if(digitalRead(LSRRCVE1)==1&&Error==2&&t!=2&&P1>20)
 {
 coach1==coach;
 EEPROM.write(8,coach1);
