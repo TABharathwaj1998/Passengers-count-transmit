@@ -2923,7 +2923,7 @@ EEPROM.write(3,X);
 if(X!=d) /* ......then it checks whether the detail sent is wrong or not. If yes,
 it is rectified. */
 {
-details=X+counter;
+details=(X*1000)+counter;
 EEPROM.write(27,details);
 d==X; /* d contains Train number, Station code, Platform number and Coach
 number. */
