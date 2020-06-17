@@ -835,6 +835,8 @@ void loop()
     }             
     indicate==1;  
     EEPROM.write(24,indicate);
+    Error==1;
+    EEPROM.write(9,Error);
    }
   } 
  }                    
