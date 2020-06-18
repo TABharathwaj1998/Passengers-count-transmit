@@ -1,6 +1,6 @@
                  
 
-                   Title: Journal Paper
+            
             Journal Name: IEEE Transactions on Intelligent 
                           Transportation Systems
                    Topic: AUTOMATIC PASSENGER’S COUNT TRANSMISSION 
