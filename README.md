@@ -1,2 +1,8 @@
-These programming languages comes under the journal paper "AUTOMATIC PASSENGERS COUNT TRANSMISSION FOR CROWD EQUILIBRIUM IN RAILWAY 
-STATIONS". This paper is submitted at "IEEE Transactions on Intelligent Transportation Systems" during ......
+                 
+
+                   Title: Journal Paper
+            Journal Name: IEEE Transactions on Intelligent 
+                          Transportation Systems
+                   Topic: AUTOMATIC PASSENGER’S COUNT TRANSMISSION 
+                          FOR CROWD EQUILIBRIUM IN RAILWAY STATIONS
+      Date of submission: June 2020
