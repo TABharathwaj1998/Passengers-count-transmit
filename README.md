@@ -5,4 +5,4 @@
                           Transportation Systems
                    Topic: AUTOMATIC PASSENGER’S COUNT TRANSMISSION 
                           FOR CROWD EQUILIBRIUM IN RAILWAY STATIONS
-      Date of submission: June 2020
+      Date of submission: 29th June 2020
