@@ -217,16 +217,7 @@ void loop()
   else if(Fix==1&&(01301101000<=x<=9925412999))
   {
    d=x*(10^-8);    /* Extraction is done only when this variable is equal to Tno. */
-   EEPROM.write(4,d);   
-   digitalWrite(ALRTOUT,HIGH); 
-   if(digitalRead(ALRTIN)==1)
-   {
-    Alert==1;
-    EEPROM.write(0,Alert);
-    Wire.beginTransmission(13);
-    Wire.write(x);
-    Wire.endTransmission();       
-   }     
+   EEPROM.write(4,d);        
    if(d%2==1) 
    {
     x=(10^8)+(x-(d*(10^8)));    
