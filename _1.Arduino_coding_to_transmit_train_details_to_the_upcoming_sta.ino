@@ -2557,6 +2557,9 @@ EEPROM.write(20,tno);
 else
 {
 }
+receive==0;
+EEPROM.write(13,receive);
+break;
 }
 else
 {
@@ -2737,6 +2740,11 @@ if(i==0) /* At initial stage, i becomes 14 which means array value = Station cod
 {
 i==14;
 EEPROM.write(21,i);
+Step==2;
+EEPROM.write(6,Step);
+}
+else if(i==1)
+{
 Step==2;
 EEPROM.write(6,Step);
 }
