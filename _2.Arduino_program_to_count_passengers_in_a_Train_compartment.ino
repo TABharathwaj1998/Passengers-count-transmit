@@ -9,7 +9,8 @@ the power is switched OFF. */
 #define PIR7 26
 #define PIR8 27
 #define PIR9 28
-#define CNTACK 29
+#define PIR10 29
+#define CNTACK 30
 #define CNTSNT 3
 extern int counter=0,c=0,*count=0,a=0,flag=0,e1=0,e2=0,e7=0,e8=0,*p=0,*q=0,*r=0,*s=0,eoe=0,Alerten=0,*ena=0,Alertex=0,*exa=0;
 void upcount(int *p,int *q, int *r, int *s, int *count, int *ena);
@@ -27,6 +28,7 @@ pinMode(PIR6,INPUT);
 pinMode(PIR7,INPUT);
 pinMode(PIR8,INPUT);
 pinMode(PIR9,INPUT);
+pinMode(PIR10,INPUT);
 pinMode(CNTACK,INPUT);
 pinMode(CNTSNT,OUTPUT);
 Wire.begin();
