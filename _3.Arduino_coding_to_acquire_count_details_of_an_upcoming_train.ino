@@ -681,32 +681,32 @@ void loop()
    TD2=analogRead(snr2);
    TD3=analogRead(snr3);
    TD4=analogRead(snr4);
-   if(TD1<750)  
+   if(TD1>750)  
    {
     digitalWrite(TCOMP1,HIGH);
     digitalWrite(TCOMP2,HIGH);
    }
-   if(TD2<750) 
+   if(TD2>750) 
    {
     digitalWrite(TCOMP3,HIGH);
     digitalWrite(TCOMP4,HIGH);
    } 
-   if(TD3<750)  
+   if(TD3>750)  
    {
     digitalWrite(TCOMP5,HIGH);
     digitalWrite(TCOMP6,HIGH);
    }
-   if(TD4<750)  
+   if(TD4>750)  
    {
     digitalWrite(TCOMP7,HIGH);
     digitalWrite(TCOMP8,HIGH);
    }
-   if(TD1<700&&TD2>700)
+   if(TD1>700&&TD2<700)
    {
     digitalWrite(T1,HIGH);
     digitalWrite(T2,LOW);
    }
-   else if(TD4<700&&TD3>700)
+   else if(TD4>700&&TD3<700)
    {
     digitalWrite(T4,HIGH);
     digitalWrite(T3,LOW);
@@ -841,7 +841,7 @@ void loop()
   TD=analogRead(snr);
   LT1=analogRead(ltn1);
   LT2=analogRead(ltn2);
-  if(TD<10&&Status==1) /* Then the station checks whether LDR (TD) placed in between the platform track has value less than 10 and Status value is 1 indicating that the train arrived so that Laser from station sends light once to 1st compartment to receive the Train number during Step 1. At Step 2 it transmits to the last compartment so that other compartments which are not able to receive the details from the 1st compartment will acquire details from the last compartment. */
+  if(TD>750&&Status==1) /* Then the station checks whether LDR (TD) placed in between the platform track has value less than 10 and Status value is 1 indicating that the train arrived so that Laser from station sends light once to 1st compartment to receive the Train number during Step 1. At Step 2 it transmits to the last compartment so that other compartments which are not able to receive the details from the 1st compartment will acquire details from the last compartment. */
   {
    if(Step==1&&(Alert==1||Error==1)&&digitalRead(LSRRCVE2)==0)
    {
@@ -849,9 +849,9 @@ void loop()
     delay(50);
     digitalWrite(LSRSND1,LOW);
     delay(50);
-    if((700<LT1<800)&&(700<=LT2<=705)) /* Numbers from 0 to 99 is extracted and numbers from 0 to 5 is extracted. */
+    if((600<LT1<700)&&(600<=LT2<=605)) /* Numbers from 0 to 99 is extracted and numbers from 0 to 5 is extracted. */
     { 
-     Tno=((LT2-700)*100)+(LT1-700); /* Added to get Train number and making Confirmed value as 1. */
+     Tno=((LT2-600)*100)+(LT1-600); /* Added to get Train number and making Confirmed value as 1. */
      EEPROM.write(2,Tno);
      Error==0;
      EEPROM.write(9,Error);
@@ -1249,37 +1249,37 @@ void loop()
    {
    }
   }     
-  if(TD1<750)  
+  if(TD1>750)  
   {
    digitalWrite(TCOMP1,HIGH);
    digitalWrite(TCOMP2,HIGH);
   }
-  if(TD2<750) 
+  if(TD2>750) 
   {
    digitalWrite(TCOMP3,HIGH);
    digitalWrite(TCOMP4,HIGH);
   } 
-  if(TD3<750)  
+  if(TD3>750)  
   {
    digitalWrite(TCOMP5,HIGH);
    digitalWrite(TCOMP6,HIGH);
   }
-  if(TD4<750)  
+  if(TD4>750)  
   {
    digitalWrite(TCOMP7,HIGH);
    digitalWrite(TCOMP8,HIGH);
   }   
  /* After the train departs, it sends "Sts" value with last digit as 4 indicating Departure where D is the 4th letter. Then it crosses first over TD3 sensor and then TD4. After crossing both, train details are erased and all the values such as Status, Alert, Confirm, r and indicate values becomes zero. */  
-  if(TD3<10&&Status==4)    
+  if(TD3>750&&Status==4)    
   {
    digitalWrite(T3,HIGH); 
-   if(TD4<10)
+   if(TD4>750)
    {
     digitalWrite(T4,LOW);
     passengerscount(y);             
     priority();
    }
-   if(TD3>10&&TD4>10&&Status==4)
+   if(TD3<750&&TD4<750&&Status==4)
    {           
     z=z*0;                                  
     EEPROM.write(6,z);
@@ -1301,16 +1301,16 @@ void loop()
     EEPROM.write(0,Alert);
    }
   }
-  else if(TD2<10&&Status==4)   /* This loop is like previous loop which is used for return journey. */
+  else if(TD2>750&&Status==4)   /* This loop is like previous loop which is used for return journey. */
   {
    digitalWrite(T2,HIGH);
-   if(TD1<10)
+   if(TD1>750)
    {
     digitalWrite(T1,LOW);
     passengerscount(y);
     priority();
    }
-   if(TD1>10&&TD2>10&&Status==4)
+   if(TD1<750&&TD2<750&&Status==4)
    {
     z=z*0;                                  
     EEPROM.write(6,z);
@@ -1334,7 +1334,7 @@ void loop()
   }       
   else
   {
-   if(TD1>10&&TD2>10&& TD3>10&&TD4>10&&(Status==4||TD>10))
+   if(TD1<750&&TD2<750&&TD3<750&&TD4<750&&(Status==4||TD<750))
    {
     z=z*0;                                  
     EEPROM.write(6,z);
