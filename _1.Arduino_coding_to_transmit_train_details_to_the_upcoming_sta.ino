@@ -1,4 +1,4 @@
- /* Arduino coding to transmit train details to the upcoming station */
+/* Arduino coding to transmit train details to the upcoming station */
 #include<Wire.h>
 #include<EEPROM.h>
 #include<SoftwareSerial.h>
@@ -2185,8 +2185,8 @@ else if(Step==2&&tno1!=0&&Fix==1)
 {
 while(0<receive<=1500)
 {
-if(TD<10) /* When Light detector placed at bottom of the train compartment has
-value lesser than 10 indicating Lesser light intensity, then the following if-elseifelseif-
+if(TD>800) /* When Light detector placed at bottom of the train compartment has
+value greater than 800 indicating Lesser light intensity, then the following if-elseifelseif-
 else containing different station codes for different light intensities are
 followed. */
 {
@@ -2204,336 +2204,336 @@ EEPROM.write(20,tno);
 i==1;
 EEPROM.write(21,i);
 }
-else if(800<TD<=805)
+else if(695<TD<=700)
 {
 i==2;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(805<TD<=810)
+else if(690<TD<=695)
 {
 i==2;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(810<TD<=815)
+else if(685<TD<=690)
 {
 i==3;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(815<TD<=820)
+else if(680<TD<=685)
 {
 i==3;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(820<TD<=825)
+else if(675<TD<=680)
 {
 i==4;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(825<TD<=830)
+else if(670<TD<=675)
 {
 i==4;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(830<TD<=835)
+else if(665<TD<=670)
 {
 i==5;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(835<TD<=840)
+else if(660<TD<=665)
 {
 i==5;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(840<TD<=845)
+else if(655<TD<=660)
 {
 i==6;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(845<TD<=850)
+else if(650<TD<=655)
 {
 i==6;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(850<TD<=855)
+else if(645<TD<=650)
 {
 i==7;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(855<TD<=860)
+else if(640<TD<=645)
 {
 i==7;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(860<TD<=865)
+else if(635<TD<=640)
 {
 i==8;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(865<TD<=870)
+else if(630<TD<=635)
 {
 i==8;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(870<TD<=875)
+else if(625<TD<=630)
 {
 i==9;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(875<TD<=880)
+else if(620<TD<=625)
 {
 i==9;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(880<TD<=885)
+else if(615<TD<=620)
 {
 i==10;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(885<TD<=890)
+else if(610<TD<=615)
 {
 i==10;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(890<TD<=895)
+else if(605<TD<=610)
 {
 i==11;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(895<TD<=900)
+else if(600<TD<=605)
 {
 i==11;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(900<TD<=905)
+else if(595<TD<=600)
 {
 i==12;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(905<TD<=910)
+else if(590<TD<=595)
 {
 i==12;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(910<TD<=915)
+else if(585<TD<=590)
 {
 i==13;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(915<TD<=920)
+else if(580<TD<=585)
 {
 i==13;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(920<TD<=925)
+else if(575<TD<=580)
 {
 i==14;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(925<TD<=930)
+else if(570<TD<=575)
 {
 i==14;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(930<TD<=935)
+else if(565<TD<=570)
 {
 i==15;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(935<TD<=940)
+else if(560<TD<=565)
 {
 i==15;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(940<TD<=945)
+else if(555<TD<=560)
 {
 i==16;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(945<TD<=950)
+else if(550<TD<=555)
 {
 i==16;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(950<TD<=955)
+else if(545<TD<=550)
 {
 i==17;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(955<TD<=960)
+else if(540<TD<=545)
 {
 i==17;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(960<TD<=965)
+else if(535<TD<=540)
 {
 i==18;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(965<TD<=970)
+else if(530<TD<=535)
 {
 i==18;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(970<TD<=975)
+else if(525<TD<=530)
 {
 i==19;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(975<TD<=980)
+else if(520<TD<=525)
 {
 i==19;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(980<TD<=985)
+else if(515<TD<=520)
 {
 i==20;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(985<TD<=990)
+else if(510<TD<=515)
 {
 i==20;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(990<TD<=995)
+else if(505<TD<=510)
 {
 i==21;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(995<TD<=1000)
+else if(500<TD<=505)
 {
 i==21;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(1000<TD<=1005)
+else if(495<TD<=500)
 {
 i==22;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(1005<TD<=1010)
+else if(490<TD<=495)
 {
 i==22;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(1010<TD<=1015)
+else if(485<TD<=490)
 {
 i==23;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(1015<TD<=1020)
+else if(480<TD<=485)
 {
 i==23;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(1020<TD<=1025)
+else if(475<TD<=480)
 {
 i==24;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(1025<TD<=1030)
+else if(470<TD<=475)
 {
 i==24;
 EEPROM.write(21,i);
 j==1;
 EEPROM.write(22,j);
 }
-else if(1030<TD<=1035)
+else if(465<TD<=470)
 {
 i==25;
 EEPROM.write(21,i);
 j==0;
 EEPROM.write(22,j);
 }
-else if(1035<TD<=1040)
+else if(460<TD<=465)
 {
 i==25;
 EEPROM.write(21,i);
@@ -2559,18 +2559,18 @@ else
 }
 receive==0;
 EEPROM.write(13,receive);
-break;
+break; 
 }
 else
 {
-receive++;
+receive++;   
 EEPROM.write(13,receive);
 }
 }
-if(receive==1500)
+if(receive==1500) /* If still no light detection......... */
 {
-if((2<=i<=7)&&(tno%2==1)) /* Station code from 2 to 7 is used for Forward
-Journey. */
+if((2<=i<=7)&&(tno%2==1)) /*..........Station code from 2 to 7 is used for Forward
+Journey......... */
 {
 if(i==7)
 {
@@ -2583,7 +2583,7 @@ i++;
 EEPROM.write(21,i);
 }
 }
-else if((8<=i<=13)&&(tno%2==0)) /* Station codes 8 to 13 for Return Journey*/
+else if((8<=i<=13)&&(tno%2==0)) /*.......Station codes 8 to 13 for Return Journey*/
 {
 if(i==13)
 {
@@ -2743,7 +2743,7 @@ EEPROM.write(21,i);
 Step==2;
 EEPROM.write(6,Step);
 }
-else if(i==1)
+else if(i==1) /* Goes to previous step if the next station has multiple platforms. */
 {
 Step==2;
 EEPROM.write(6,Step);
@@ -2806,7 +2806,7 @@ TD=analogRead(sensorpin);
 P1=analogRead(sensorpin);
 P2=analogRead(sensorpin);
 if((730<TD<750||flag==1)||(DA==1||duration==5750)) /* When Light detector fixed
-at train's bottom detects intensity at the value between 750 and 750, then flag
+at train's bottom detects intensity at the value between 730 and 750, then flag
 becomes 1 from 0, ......*/
 {
 if(flag==0)
@@ -3100,15 +3100,14 @@ EEPROM.write(30,duration);
 else
 {
 }
-if(DA==1&&coach1==1&&coach2==12) /* If DA is 1 and compartment is first or
-last, then......... */
+if(DA==1&&((coach1==1&&tno%2==1)||(coach2==12&&tno%2==0))) /* If DA is 1 and compartment is first and Forward journey train or last and Return journey train, then......... */
 {
 Status==1; /* ....... Status becomes 1. */
 EEPROM.write(2,Status);
 if(digitalRead(PIR)==0&&duration==10&&Status==1)
 {
 Status==2; /* Status becomes 2 only when duration becomes 10, because after
-reaching TD2, it takes time of about 15 seconds to reach the platform completely.
+reaching TD2, it takes time of about 10-15 seconds to reach the platform completely.
 10 seconds and remaining few seconds takes place during loop process of Step 4.
 */
 EEPROM.write(2,Status);
