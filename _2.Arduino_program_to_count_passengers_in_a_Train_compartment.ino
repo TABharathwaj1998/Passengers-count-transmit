@@ -14,7 +14,7 @@ int EXTLDR=A7;
 #define CNTACK 30
 #define CNTSNT 3
 extern int ldr1, ldr2, ldr9, ldr7, ldr8, ldr, temp, Lock, diff, diff9, temp9, tensldr9, Lock9, ld, extld, counter=0, c=0, *count=0, a=0, flag=0, e1=0, e2=0, e7=0, e8=0, *p=0, *q=0, *r=0, *s=0, eoe=0, Alerten=0, *ena=0, Alertex=0, *exa=0;
-void ldr();
+void lghtdtctrs();
 void ldr18();
 void nocount1(int *p,int *s,int *count,int *ena,int *exa);
 void ldr27();
@@ -51,9 +51,9 @@ temp=EEPROM.read(18);
 tensldr9=EEPROM.read(19);
 Lock9=EEPROM.read(20);
 }
-void ldr()    /* To measure light intensity using....... */
+void lghtdtctrs()    /* To measure light intensity using....... */
 {     
-Id=analogRead(Lightctrl);
+ld=analogRead(Lightctrl);
 if(ld>600)     /* .......ld variable.........*/
 {
 digitalWrite(LIGHT, HIGH); /*...... to switch ON /....... */
@@ -73,7 +73,7 @@ ldr9=analogRead(LDR9);
 ldr7=analogRead(LDR7);
 ldr8=analogRead(LDR8);  
 /* All LDRs that are within certain limits as shown below are subtracted.......... */
-if(((500<ldr1<600)&&(500<ldr2<600)&&(500<ldr8<600)&&(500<ldr7<600))|| ((ldr1>600)&&(500<ldr2<600)&&(500<ldr8<600)&&(500<ldr7<600))|| ((500<ldr1<600)&&(ldr2>600)&&(500<ldr8<600)&&(500<ldr7<600))|| ((500<ldr1<600)&&(500<ldr2<600)&&(ldr8>600)&&(500<ldr7<600))|| ((500<ldr1<600)&&(500<ldr2<600)&&(500<ldr8<600)&&(ldr7>600))|| ((ldr1>600)&&(ldr2>600)&&(500<ldr8<600)&&(500<ldr7<600))|| ((500<ldr1<600)&&(500<ldr2<600)&&(ldr8>600)&&(ldr7>600))|| ((ldr1>600)&&(500<ldr2<600)&&(500<ldr8<600)&&(ldr7>600))|| ((500<ldr1<600)&&(ldr2>600)&&(500<ldr8<600)&&(ldr7>600))|| ((ldr1>600)&&(ldr2>600)&&(ldr8>600)&&(ldr7>600)&&(ldr>600))
+if(((500<ldr1<600)&&(500<ldr2<600)&&(500<ldr8<600)&&(500<ldr7<600))||((ldr1>600)&&(500<ldr2<600)&&(500<ldr8<600)&&(500<ldr7<600))||((500<ldr1<600)&&(ldr2>600)&&(500<ldr8<600)&&(500<ldr7<600))||((500<ldr1<600)&&(500<ldr2<600)&&(ldr8>600)&&(500<ldr7<600))||((500<ldr1<600)&&(500<ldr2<600)&&(500<ldr8<600)&&(ldr7>600))||((ldr1>600)&&(ldr2>600)&&(500<ldr8<600)&&(500<ldr7<600))|| ((500<ldr1<600)&&(500<ldr2<600)&&(ldr8>600)&&(ldr7>600))||((ldr1>600)&&(500<ldr2<600)&&(500<ldr8<600)&&(ldr7>600))||((500<ldr1<600)&&(ldr2>600)&&(500<ldr8<600)&&(ldr7>600))||((ldr1>600)&&(ldr2>600)&&(ldr8>600)&&(ldr7>600)&&(ldr>600)))
 {
 if(temp==3)
 {
@@ -94,7 +94,7 @@ EEPROM.write(16,diff);
 }
 }
 }
-else if(((600<ldr1<700)&&(600<ldr2<700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((ldr1>700)&&(600<ldr2<700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(ldr2>700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(ldr8>700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(600<ldr8<700)&&(ldr7>700))|| ((ldr1>700)&&(ldr2>700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(ldr8>700)&&(ldr7>700))|| ((ldr1>700)&&(600<ldr2<700)&&(600<ldr8<700)&&(ldr7>700))|| ((600<ldr1<700)&&(ldr2>700)&&(600<ldr8<700)&&(ldr7>700))|| ((ldr1>700)&&(ldr2>700)&&(ldr8>700)&&(ldr7>700)&&(ldr>600))
+else if(((600<ldr1<700)&&(600<ldr2<700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((ldr1>700)&&(600<ldr2<700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(ldr2>700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(ldr8>700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(600<ldr8<700)&&(ldr7>700))|| ((ldr1>700)&&(ldr2>700)&&(600<ldr8<700)&&(600<ldr7<700))|| ((600<ldr1<700)&&(600<ldr2<700)&&(ldr8>700)&&(ldr7>700))|| ((ldr1>700)&&(600<ldr2<700)&&(600<ldr8<700)&&(ldr7>700))|| ((600<ldr1<700)&&(ldr2>700)&&(600<ldr8<700)&&(ldr7>700))|| ((ldr1>700)&&(ldr2>700)&&(ldr8>700)&&(ldr7>700)&&(ldr>600)))
 {
 if(temp==3)
 {
@@ -120,7 +120,7 @@ EEPROM.write(16,diff);
 }
 }
 }
-else if(((700<ldr1<800)&&(700<ldr2<800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((ldr1>800)&&(700<ldr2<800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(ldr2>800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(ldr8>800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(700<ldr8<800)&&(ldr7>800))|| ((ldr1>800)&&(ldr2>800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(ldr8>800)&&(ldr7>800))|| ((ldr1>800)&&(700<ldr2<800)&&(700<ldr8<800)&&(ldr7>800))|| ((700<ldr1<800)&&(ldr2>800)&&(700<ldr8<800)&&(ldr7>800))|| ((ldr1>800)&&(ldr2>800)&&(ldr8>800)&&(ldr7>800)&&(ldr>600))
+else if(((700<ldr1<800)&&(700<ldr2<800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((ldr1>800)&&(700<ldr2<800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(ldr2>800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(ldr8>800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(700<ldr8<800)&&(ldr7>800))|| ((ldr1>800)&&(ldr2>800)&&(700<ldr8<800)&&(700<ldr7<800))|| ((700<ldr1<800)&&(700<ldr2<800)&&(ldr8>800)&&(ldr7>800))|| ((ldr1>800)&&(700<ldr2<800)&&(700<ldr8<800)&&(ldr7>800))|| ((700<ldr1<800)&&(ldr2>800)&&(700<ldr8<800)&&(ldr7>800))|| ((ldr1>800)&&(ldr2>800)&&(ldr8>800)&&(ldr7>800)&&(ldr>600)))
 {
 if(temp==3)
 {
@@ -246,10 +246,10 @@ void loop()
 {
 do
 {
-ldr();   /* To call ldr function for light intensity detection. */
+lghtdtctrs();   /* To call ldr function for light intensity detection. */
 if(ldr1>Lock&&ldr8<Lock)  /* If LDR 1 detects passenger's movement and LDR 8 detects nothing, the condition satisfies indicating that passenger is about to enter. After this condition there are if-elseif-elseif-.....-else that shows whether this passenger completely enters or not. */
 {
-ldr();   
+lghtdtctrs();   
 if(ldr8<Lock&&ldr7<Lock) 
 {
 Alerten==0; 
@@ -329,7 +329,7 @@ compnx(&e8,&e7,&e1,&e2,&counter);   /*.........this function compensates dependi
 }
 }
 }
-else if(ldr9<Lock9&&ldr7>Lock).  /* If ldr7 greater instead of ldr2 along with ldr9, then nocount1 function is used. */
+else if(ldr9<Lock9&&ldr7>Lock)  /* If ldr7 greater instead of ldr2 along with ldr9, then nocount1 function is used. */
 {
 nocount1(&e1,&e7,&counter,&Alerten,&Alertex);    
 }
@@ -358,7 +358,7 @@ digitalWrite(CNTSNT,LOW);
 /* The same procedure is followed for detection of LDR 2 and 7*/
 else if(ldr2>Lock&&ldr7<Lock)
 {
-ldr();
+lghtdtctrs();
 if(ldr8<Lock&&ldr7<Lock)
 {
 Alerten==0;
@@ -380,7 +380,7 @@ digitalWrite(CNTSNT,LOW);
 delay(655);
 if(ldr9<Lock9)
 {
-ldr();
+lghtdtctrs();
 delay(665);
 if((ldr7>Lock&&ldr2<Lock)&&(ldr8<Lock&&ldr1<Lock))
 {
@@ -488,7 +488,7 @@ Wire.endTransmission();
 digitalWrite(CNTSNT,HIGH);
 digitalWrite(CNTSNT,LOW);
 }
-ldr();
+lghtdtctrs();
 delay(655);
 if(ldr9>Lock9&&ldr1>Lock&&ldr2>Lock&&ldr8>Lock&&ldr7>Lock) /* LDR 9 is placed between LDR 1, 2, 7 and 8 to prevent twice increment due to a passenger passing between LDR 1 and 2. Similarly LDR 10 is placed between LDR 3, 4, 5 and 6 to prevent double count for detection of both LDR 3 and 4 by one passenger. */
 {
@@ -524,13 +524,13 @@ counter=counter+1;
 EEPROM.write(8,counter);
 continue;
 }
-else if((ldr8<Lock&&ldr1>Lock)||((ldr7<Lock&&ldr2>Lock))
+else if((ldr8<Lock&&ldr1>Lock)||(ldr7<Lock&&ldr2>Lock))
 {
  continue;
 }
 else if((ldr8>Lock&&ldr7>Lock)&&(ldr1>Lock&&ldr2>Lock)) /* If a passenger stands in between LDR 1, 2, 7 & 8............*/
 {
-ldr();
+lghtdtctrs();
 e1==1; 
 EEPROM.write(9,e1);
 e2==1;
@@ -548,7 +548,7 @@ e2==0;
 EEPROM.write(10,e2);
 continue;
 }
-else if((ldr8<Lock&&ldr1>Lock)||((ldr7<Lock&&ldr2>Lock))
+else if((ldr8<Lock&&ldr1>Lock)||(ldr7<Lock&&ldr2>Lock))
 {
 e1==0; 
 EEPROM.write(9,e1);
@@ -609,13 +609,13 @@ else
 } /* So far the above loops increments the count either once or twice. */
 else if(e1==1||e1==2)
 {
-ldr();
+lghtdtctrs();
 ldr18();
 continue; 
 }
 else if(e2==1||e2==2)
 {
-ldr();
+lghtdtctrs();
 ldr27();
 continue;
 }
@@ -631,13 +631,13 @@ continue;
 }
 else if(e7==1||e7==2)
 {
-ldr();
+lghtdtctrs();
 ldr72();
 continue;
 }
 else if(e8==1||e8==2)
 {
-ldr();
+lghtdtctrs();
 ldr81();
 continue;
 }
@@ -654,11 +654,11 @@ else
 Alertex==1;
 EEPROM.write(11,Alertex);
 }
-ldr();
+lghtdtctrs();
 delay(665);
 if(ldr9>Lock9&&ldr1>Lock&&ldr2>Lock&&ldr8>Lock&&ldr7>Lock)
 {
-ldr();
+lghtdtctrs();
 delay(665);
 if((ldr1>Lock&&ldr2>Lock)&&(ldr8<Lock&&ldr7<Lock))
 {
@@ -696,7 +696,7 @@ continue;
 }
 else if((ldr2>Lock&&ldr7>Lock)&&(ldr1>Lock&&ldr8>Lock))
 {
-ldr();
+lghtdtctrs();
 e8==1;
 EEPROM.write(12,e8);
 e7==1;
@@ -812,11 +812,11 @@ Wire.endTransmission();
 digitalWrite(CNTSNT,HIGH);
 digitalWrite(CNTSNT,LOW);
 }
-ldr();
+lghtdtctrs();
 delay(655);
 if(ldr9<Lock9) 
 {
-ldr();
+lghtdtctrs();
 delay(655);
 if((ldr2>Lock&&ldr7<Lock)&&(ldr1<Lock&&ldr8<Lock))
 {
@@ -855,7 +855,7 @@ EEPROM.write(7,Alerten);
 }
 else if(ldr9>Lock9&&ldr8>Lock)
 {
-ldr();
+lghtdtctrs();
 delay(655);
 if((ldr2>Lock&&ldr1>Lock)&&(ldr7<Lock&&ldr8<Lock))
 {
@@ -917,11 +917,11 @@ Wire.endTransmission();
 digitalWrite(CNTSNT,HIGH);
 digitalWrite(CNTSNT,LOW);
 }
-ldr();
+lghtdtctrs();
 delay(665);
 if(ldr9<Lock9)
 {
-ldr();
+lghtdtctrs();
 delay(665);
 if((ldr1>Lock&&ldr8<Lock)&&(ldr2<Lock&&ldr7<Lock))
 {
@@ -960,7 +960,7 @@ EEPROM.write(7,Alerten);
 }
 else if(ldr9>Lock9&&ldr7>Lock)
 {
-ldr();
+lghtdtctrs();
 delay(665);
 if((ldr1>Lock&&ldr2>Lock)&&(ldr8<Lock&&ldr7<Lock))
 {
@@ -1016,19 +1016,19 @@ digitalWrite(CNTSNT,LOW);
 }
 while(0<counter<160);
 }
-void ldr18(). /* Function called when passenger stands between LDR 1 and 8 after entering halfway.*/
+void ldr18() /* Function called when passenger stands between LDR 1 and 8 after entering halfway.*/
 {
 while(e1==1) 
 {
-ldr();
-if((ldr8>Lock&&ldr1<Lock)&&(ldr7<Lock&&ldr2<Lock)).   /* count increases if enters completely............ */ 
+lghtdtctrs();
+if((ldr8>Lock&&ldr1<Lock)&&(ldr7<Lock&&ldr2<Lock))   /* count increases if enters completely............ */ 
 {
 counter=counter+1;
 EEPROM.write(8,counter);
 e1==0;
 EEPROM.write(9,e1);
 }
-else if((ldr1>Lock&&ldr8<Lock)&&(ldr7<Lock&&ldr2<Lock)) / *  .....or not if he / she exits. */
+else if((ldr1>Lock&&ldr8<Lock)&&(ldr7<Lock&&ldr2<Lock))  /*  .....or not if he / she exits. */
 {
 e1==0;
 EEPROM.write(9,e1);
@@ -1105,7 +1105,7 @@ digitalWrite(CNTSNT,LOW);
 }
 while(e1==2) /* This e1 as 2 occurs when second passenger starts to board by crossing ldr2 */
 {
-ldr();
+lghtdtctrs();
 if((ldr8>Lock&&ldr1<Lock)&&((ldr2<Lock||ldr2>Lock)&&ldr7<Lock))
 {
 counter=counter+1;
@@ -1144,7 +1144,7 @@ while(e1==2&&e2==1) /* Here while loop will check whether any one gets zero. */
 {
 compnx(&e8,&e7,&e1,&e2,&counter);
 }
-if(e2==0). /* If e2 becomes zero, then e1 becomes 1 and checks whether passenger moves inside or outside or shifts between ldr 2 and 7. */
+if(e2==0) /* If e2 becomes zero, then e1 becomes 1 and checks whether passenger moves inside or outside or shifts between ldr 2 and 7. */
 {
  e1==1;
 EEPROM.write(9,e1);
@@ -1212,7 +1212,7 @@ digitalWrite(CNTSNT,LOW);
 /* Formal parameters nocount1() and nocount2() are used to avoid count if entering and exiting takes place simultaneously. */
 void nocount1(int *p,int *s,int *count,int *ena,int *exa)
 {
-ldr();
+lghtdtctrs();
 if((ldr8>Lock&&ldr1<Lock)&&(ldr2>Lock&&ldr7<Lock))
 {
 *count=(*count)+0;
@@ -1339,7 +1339,7 @@ void ldr27()
 {
 while(e2==1)
 {
-ldr();
+lghtdtctrs();
 if((ldr7>Lock&&ldr2<Lock)&&(ldr8<Lock&&ldr1<Lock))
 {
 counter=counter+1;
@@ -1423,7 +1423,7 @@ digitalWrite(CNTSNT,LOW);
 }
 while(e2==2)
 {
-ldr();
+lghtdtctrs();
 if((ldr7>Lock&&ldr2<Lock)&&(ldr8<Lock&&(ldr1>Lock||ldr1<Lock)))
 {
 counter=counter+1;
@@ -1530,7 +1530,7 @@ digitalWrite(CNTSNT,LOW);
 }
 void compnx(int *r, int *s, int *p, int*q, int *count) /* This function is called when the passenger stands below the LDR sensor for the long time without entering or exiting. */
 {
-ldr();
+lghtdtctrs();
 if(ldr8>Lock&&((*p)==1||(*p)==2)&&ldr1<Lock)
 {
 *count=(*count)+1;
@@ -1936,7 +1936,7 @@ digitalWrite(CNTSNT,LOW);
 }
 void nocount2(int *q,int *r,int *count,int *ena,int *exa)
 {
-ldr();
+lghtdtctrs();
 if((ldr7>Lock&&ldr2<Lock)&&(ldr1>Lock&&ldr8<Lock))
 {
 *count=(*count)+0;
