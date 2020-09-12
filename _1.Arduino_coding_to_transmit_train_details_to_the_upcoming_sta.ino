@@ -2805,7 +2805,7 @@ else
 TD=analogRead(sensorpin); 
 P1=analogRead(sensorpin);
 P2=analogRead(sensorpin);
-if((730<TD<750||flag==1)||(DA==1||duration==5750)) /* When Light detector fixed
+if((730<TD<750||flag==1||stno>13)||(DA==1||duration==5750)) /* When Light detector fixed
 at train's bottom detects intensity at the value between 730 and 750, then flag
 becomes 1 from 0, ......*/
 {
